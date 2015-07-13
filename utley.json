@@ -1,7 +1,7 @@
 {
     "css": [{
         "src": [
-            "../jsLite/resources/css",
+            "../PeteJS/resources/css",
             "resources/css"
         ],
         "output": "build/music_theory.css",
@@ -10,17 +10,17 @@
 
     "js": [{
         "src": [
-            "../jsLite/src",
-            "js"
+            "../PeteJS/src",
+            "src"
         ],
         "output": "build/music_theory.js",
         "version": "1.0.0",
         "dependencies": [
-            "JSLITE.prototype.js",
-            "JSLITE.js",
-            "JSLITE.Element.js",
-            "JSLITE.Composite.js",
-            "JSLITE.Observer.js"
+            "Pete.prototype.js",
+            "Pete.js",
+            "Pete.Element.js",
+            "Pete.Composite.js",
+            "Pete.Observer.js"
         ]
     }]
 }
