@@ -1,0 +1,27 @@
+{
+    "css": [{
+        "src": [
+            "../jsLite/resources/css",
+            "resources/css"
+        ],
+        "output": "build/music_theory.css",
+        "version": "1.0.0"
+    }],
+
+    "js": [{
+        "src": [
+            "../jsLite/src",
+            "js"
+        ],
+        "output": "build/music_theory.js",
+        "version": "1.0.0",
+        "dependencies": [
+            "JSLITE.prototype.js",
+            "JSLITE.js",
+            "JSLITE.Element.js",
+            "JSLITE.Composite.js",
+            "JSLITE.Observer.js"
+        ]
+    }]
+}
+
