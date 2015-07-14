@@ -388,7 +388,7 @@
 
         var setElements = function (a, name) {
             // First remove everything but the title in the <p>, i.e., 'Type' and 'Inversion'.
-            Pete.Element.gets('#' + name + ' a', true).remove();
+            Pete.Element.gets('#' + name + ' a').remove();
 
             for (i = 0, len = a.length; i < len; i++) {
                 Pete.Element.create({tag: 'a',
@@ -566,18 +566,18 @@
 
         Pete.Element.gets('input[type=radio]').on('click', function (e) {
             var form = e.target.form,
-                sValue = e.target.value;
+                value = e.target.value;
 
             if (form.id === 'mainMenu') {
-                var oChordQuiz = Pete.Element.get('chordQuiz'),
-                    oKeyQuiz = Pete.Element.get('keySignaturesQuiz'),
-                    fnToggleElements = function (sDiv) {
+                var chordQuiz = Pete.Element.get('chordQuiz'),
+                    keyQuiz = Pete.Element.get('keySignaturesQuiz'),
+                    toggleElements = function (sDiv) {
                         // Elements to toggle: the <h3>s, the value of #notes p, rest are self-evident.
                         var a = (sDiv === 'chordQuiz') ?
                             ['none', 'block'] :
                             ['block', 'none'];
 
-                        oChordQuiz.show();
+                        chordQuiz.show();
 
                         // No matter which 'view' was selected remove any previously selected notes.
                         Pete.Element.gets('#notes span').removeClass('selected');
@@ -588,32 +588,32 @@
                         reset();
                     };
 
-                if (sValue === 'chordQuiz') {
-                    fnToggleElements('chordQuiz');
+                if (value === 'chordQuiz') {
+                    toggleElements('chordQuiz');
 
                     // Hide the first paragraph but show every other paragraph.
                     Pete.Element.get('h3 + div + p').hide();
                     Pete.Element.gets('p + div + p').show();
 
                     Pete.Element.gets('#notes a.notes').removeClass('Pete_draggable');
-                    oKeyQuiz.hide();
+                    keyQuiz.hide();
                     init();
-                } else if (sValue === 'chordBuilder') {
+                } else if (value === 'chordBuilder') {
                     // Set this so we know which object to look up in the cache;
                     skillLevel = 'chordBuilder';
-                    fnToggleElements('chordBuilder');
+                    toggleElements('chordBuilder');
 
                     // Show the first paragraph but hide every other paragraph.
                     Pete.Element.get('h3 + div + p').show();
                     Pete.Element.gets('p + div + p').hide();
 
                     Pete.Element.gets('#notes a.notes').addClass('Pete_draggable');
-                    oKeyQuiz.hide();
-                    init(sValue);
+                    keyQuiz.hide();
+                    init(value);
 
                 } else {
-                    oChordQuiz.hide();
-                    oKeyQuiz.show();
+                    chordQuiz.hide();
+                    keyQuiz.show();
                 }
 
             } else if (form.id === 'chordMenu') {
@@ -621,11 +621,11 @@
 
                 // If beginner skill level is selected, make sure the 'Root Position' element is given the selected
                 // class (to understand why see the logic w/in the handler bound to the 'chordQuiz' element).
-                if (sValue === 'beginner') {
+                if (value === 'beginner') {
                     Pete.Element.get('#inversions span').addClass('selected');
                 }
 
-                init(sValue);
+                init(value);
             }
         });
 
