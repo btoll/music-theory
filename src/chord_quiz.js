@@ -21,6 +21,7 @@
     },
 
     skip = function () {
+        //reset();
         getChord();
     },
 
@@ -40,190 +41,8 @@
     deepCopy = {},
     permutations = [],
     skillLevel,
-
-    notesObj = {
-        'A': {
-            Major7: ['A', 'C&#9839;', 'E', 'G&#9839;'],
-            Minor7: ['A', 'C', 'E', 'G']
-        },
-        'B': {
-            Major7: ['B', 'D&#9839;', 'F&#9839;', 'A&#9839;'],
-            Minor7: ['B', 'D', 'F&#9839;', 'A']
-        },
-        'C': {
-            Major7: ['C', 'E', 'G', 'B'],
-            Minor7: ['C', 'E&#9837;', 'G', 'B&#9837;']
-        },
-        'D': {
-            Major7: ['D', 'F&#9839;', 'A', 'C&#9839;'],
-            Minor7: ['D', 'F', 'A', 'C']
-        },
-        'E': {
-            Major7: ['E', 'G&#9839;', 'B', 'D&#9839;'],
-            Minor7: ['E', 'G', 'B', 'D']
-        },
-        'F': {
-            Major7: ['F', 'A', 'C', 'E'],
-            Minor7: ['F', 'A&#9837;', 'C', 'E&#9837;']
-        },
-        'G': {
-            Major7: ['G', 'B', 'D', 'F&#9839;'],
-            Minor7: ['G', 'B&#9837;', 'D', 'F']
-        },
-        'A&#9837;': {
-            Major7: ['A&#9837;', 'C', 'E&#9837;', 'G'],
-            Minor7: ['A&#9837;', 'C&#9837;', 'E&#9837;', 'G&#9837;']
-        },
-        'B&#9837;': {
-            Major7: ['B&#9837;', 'D', 'F', 'A'],
-            Minor7: ['B&#9837;', 'D&#9837;', 'F', 'A&#9837;']
-        },
-        'C&#9837;': false,
-        'D&#9837;': {
-            Major7: ['D&#9837;', 'F', 'A&#9837;', 'C'],
-            Minor7: ['D&#9837;', 'F&#9837;', 'A&#9837;', 'C&#9837;']
-        },
-        'E&#9837;': {
-            Major7: ['E&#9837;', 'G', 'B&#9837;', 'D'],
-            Minor7: ['E&#9837;', 'G&#9837;', 'B&#9837;', 'D&#9837;']
-        },
-        'F&#9837;': false,
-        'G&#9837;': {
-            Major7: ['G&#9837;', 'B&#9837;', 'D&#9837;', 'F'],
-            Minor7: ['G&#9837;', 'B&#9837;&#9837;', 'D&#9837;', 'F&#9837;']
-        },
-        'A&#9839;': {
-            Major7: ['A&#9839;', 'C&#9839;&#9839;', 'E&#9839;', 'G&#9839;&#9839;'],
-            Minor7: ['A&#9839;', 'C&#9839;', 'E&#9839;', 'G&#9839;']
-        },
-        'B&#9839;': false,
-        'C&#9839;': {
-            Major7: ['C&#9839;', 'E&#9839;', 'G&#9839;', 'B&#9839;'],
-            Minor7: ['C&#9839;', 'E', 'G&#9839;', 'B']
-        },
-        'D&#9839;': {
-            Major7: ['D&#9839;', 'F&#9839;&#9839;', 'A&#9839;', 'C&#9839;&#9839;'],
-            Minor7: ['D&#9839;', 'F&#9839;', 'A&#9839;', 'C&#9839;']
-        },
-        'E&#9839;': false,
-        'F&#9839;': {
-            Major7: ['F&#9839;', 'A&#9839;', 'C&#9839;', 'E&#9839;'],
-            Minor7: ['F&#9839;', 'A', 'C&#9839;', 'E']
-        },
-        'G&#9839;': {
-            Major7: ['G&#9839;', 'B&#9839;', 'D&#9839;', 'F&#9839;&#9839;'],
-            Minor7: ['G&#9839;', 'B', 'D&#9839;', 'F&#9839;']
-        }
-    },
-
-    notesObjAdvanced = {
-        'A': {
-            Dominant7: ['A', 'C&#9839;', 'E', 'G'],
-            Augmented7: ['A', 'C&#9839;', 'E&#9839;', 'G'],
-            HalfDiminished7: ['A', 'C', 'E&#9837;', 'G'],
-            MinorMajor7: ['A', 'C', 'E', 'G&#9839;']
-        },
-        'B': {
-            Dominant7: ['B', 'D&#9839;', 'F&#9839;', 'A'],
-            Augmented7: ['B', 'D&#9839;', 'F&#9839;&#9839;', 'A'],
-            HalfDiminished7: ['B', 'D', 'F', 'A'],
-            MinorMajor7: ['B', 'D', 'F&#9839;', 'A&#9839;']
-        },
-        'C': {
-            Dominant7: ['C', 'E', 'G', 'B&#9837;'],
-            Augmented7: ['C', 'E', 'G&#9839;', 'B&#9837;'],
-            HalfDiminished7: ['C', 'E&#9837;', 'G&#9837;', 'B&#9837;'],
-            MinorMajor7: ['C', 'E&#9837;', 'G', 'B']
-        },
-        'D': {
-            Dominant7: ['D', 'F&#9839;', 'A', 'C'],
-            Augmented7: ['D', 'F&#9839;', 'A&#9839;', 'C'],
-            HalfDiminished7: ['D', 'F', 'A&#9837;', 'C'],
-            MinorMajor7: ['D', 'F', 'A', 'C&#9839;']
-        },
-        'E': {
-            Dominant7: ['E', 'G&#9839;', 'B', 'D'],
-            Augmented7: ['E', 'G&#9839;', 'B&#9839;', 'D'],
-            HalfDiminished7: ['E', 'G', 'B&#9837;', 'D'],
-            MinorMajor7: ['E', 'G', 'B', 'D&#9839;']
-        },
-        'F': {
-            Dominant7: ['F', 'A', 'C', 'E&#9837;'],
-            Augmented7: ['F', 'A', 'C&#9839;', 'E&#9837;'],
-            HalfDiminished7: ['F', 'A&#9837;', 'C&#9837;', 'E&#9837;'],
-            MinorMajor7: ['F', 'A&#9837;', 'C', 'E']
-        },
-        'G': {
-            Dominant7: ['G', 'B', 'D', 'F'],
-            Augmented7: ['G', 'B', 'D&#9839;', 'F'],
-            HalfDiminished7: ["G", "B&#9837;", "D&#9837;", "F"],
-            MinorMajor7: ["G", "B&#9837;", "D", "F&#9839;"]
-        },
-        'A&#9837;': {
-            Dominant7: ['A&#9837;', 'C', 'E&#9837;', 'G&#9837;'],
-            Augmented7: ['A&#9837;', 'C', 'E', 'G&#9837;'],
-            HalfDiminished7: ['A&#9837;', 'C&#9837;', 'E', 'G&#9837;'],
-            MinorMajor7: ['A&#9837;', 'C&#9837;', 'E&#9837;', 'G']
-        },
-        'B&#9837;': {
-            Dominant7: ['B&#9837;', 'D', 'F', 'A&#9837;'],
-            Augmented7: ['B&#9837;', 'D', 'F&#9839;', 'A&#9837;'],
-            HalfDiminished7: ['B&#9837;', 'D&#9837;', 'F&#9837;', 'A&#9837;'],
-            MinorMajor7: ['B&#9837;', 'D&#9837;', 'F', 'A']
-        },
-        'C&#9837;': false,
-        'D&#9837;': {
-            Dominant7: ['D&#9837;', 'F', 'A&#9837;', 'C&#9837;'],
-            Augmented7: ['D&#9837;', 'F', 'A', 'C&#9837;'],
-            HalfDiminished7: ['D&#9837;', 'F&#9837;', 'A&#9837;&#9837;', 'C&#9837;'],
-            MinorMajor7: ['D&#9837;', 'F&#9837;', 'A&#9837;', 'C']
-        },
-        'E&#9837;': {
-            Dominant7: ['E&#9837;', 'G', 'B&#9837;', 'D&#9837;'],
-            Augmented7: ['E&#9837;', 'G', 'B', 'D&#9837;'],
-            HalfDiminished7: ['E&#9837;', 'G&#9837;', 'B&#9837;&#9837;', 'D&#9837;'],
-            MinorMajor7: ['E&#9837;', 'G&#9837;', 'B&#9837;', 'D']
-        },
-        'F&#9837;': false,
-        'G&#9837;': {
-            Dominant7: ['G&#9837;', 'B&#9837;', 'D&#9837;', 'F&#9837;'],
-            Augmented7: ['G&#9837;', 'B&#9837;', 'D', 'F&#9837;'],
-            HalfDiminished7: ['G&#9837;', 'B&#9837;&#9837;', 'D&#9837;&#9837;', 'F&#9837;'],
-            MinorMajor7: ['G&#9837;', 'B&#9837;&#9837;', 'D&#9837;', 'F']
-        },
-        'A&#9839;': {
-            Dominant7: ['A&#9839;', 'C&#9839;&#9839;', 'E&#9839;', 'G&#9839;'],
-            Augmented7: ['A&#9839;', 'C&#9839;&#9839;', 'E&#9839;&#9839;', 'G&#9839;'],
-            HalfDiminished7: ['A&#9839;', 'C&#9839;', 'E', 'G&#9839;'],
-            MinorMajor7: ['A&#9839;', 'C&#9839;', 'E&#9839;', 'G&#9839;&#9839;']
-        },
-        'B&#9839;': false,
-        'C&#9839;': {
-            Dominant7: ['C&#9839;', 'E&#9839;', 'G&#9839;', 'B'],
-            Augmented7: ['C&#9839;', 'E&#9839;', 'G&#9839;&#9839;', 'B'],
-            HalfDiminished7: ['C&#9839;', 'E', 'G', 'B'],
-            MinorMajor7: ['C&#9839;', 'E', 'G&#9839;', 'B&#9839;']
-        },
-        'D&#9839;': {
-            Dominant7: ['D&#9839;', 'F&#9839;&#9839;', 'A&#9839;', 'C&#9839;'],
-            Augmented7: ['D&#9839;', 'F&#9839;&#9839;', 'A&#9839;&#9839;', 'C&#9839;'],
-            HalfDiminished7: ['D&#9839;', 'F&#9839;', 'A', 'C&#9839;'],
-            MinorMajor7: ['D&#9839;', 'F&#9839;', 'A&#9839;', 'C&#9839;&#9839;']
-        },
-        'E&#9839;': false,
-        'F&#9839;': {
-            Dominant7: ['F&#9839;', 'A&#9839;', 'C&#9839;', 'E'],
-            Augmented7: ['F&#9839;', 'A&#9839;', 'C&#9839;&#9839;', 'E'],
-            HalfDiminished7: ['F&#9839;', 'A', 'C', 'E'],
-            MinorMajor7: ['F&#9839;', 'A', 'C&#9839;', 'E&#9839;']
-        },
-        'G&#9839;': {
-            HalfDiminished7: ['G&#9839;', 'B', 'D', 'F&#9839;'],
-            Augmented7: ['G&#9839;', 'B', 'D&#9839;', 'F&#9839;'],
-            Dominant7: ['G&#9839;', 'B&#9839;', 'D&#9839;', 'F&#9839;'],
-            MinorMajor7: ['G&#9839;', 'B', 'D&#9839;', 'F&#9839;&#9839;']
-        }
-    },
+    notesObj,
+    notesObjAdvanced,
 
     random = function () {
         return (Math.round(Math.random()) - 0.5);
@@ -259,9 +78,10 @@
         deepCopy = skillLevel !== 'advanced' ?
             Pete.deepCopy(notesObj) :
                 (function () {
-                    var o = Pete.deepCopy(notesObj);
+                    var o = Pete.deepCopy(notesObj),
+                        p;
 
-                    for (var p in notesObj) {
+                    for (p in notesObj) {
                          o[p] = Pete.mixin(o[p], notesObjAdvanced[p]);
                     }
 
@@ -440,9 +260,9 @@
         // Set an expando so this is only done once.
         setQuiz.initiated = true;
         setElements(cache[skillLevel].chords, 'chords');
-    };
+    },
 
-    var reset = function () {
+    reset = function () {
         // Get all child nodes within the drop zone that have a 'sortOrder' property.
         var arr = Pete.makeArray($('notes').childNodes).concat(Pete.makeArray(Pete.Element.gets('#dropZoneContainer .Pete_draggable', true))).filter(function (v) {
             // Should there be a better check?
@@ -473,6 +293,31 @@
         dropZone.append(frag);
     };
 
+    Pete.defer.autoWrap  = false;
+
+    // Execute this callback after all requests have returned.
+    Pete.defer.wrap(function () {
+        init();
+    });
+
+    Pete.defer.load({
+        url: 'chords/sevenths/basic.json',
+        data: 'json',
+        type: 'POST',
+        success: function (resp) {
+            notesObj = resp;
+        }
+    });
+
+    Pete.defer.load({
+        url: 'chords/sevenths/advanced.json',
+        data: 'json',
+        type: 'POST',
+        success: function (resp) {
+            notesObjAdvanced = resp;
+        }
+    });
+
     Pete.ready(function () {
         // Init the drag-n-drop stuff.
         Pete.ux.DropZoneManager.add(Pete.Element.gets('#notes'), {
@@ -484,25 +329,25 @@
             subscribe: {
                 beforenodedrop: function (e) {
                     // Only drop if there isn't another child element in the target drop zone.
-                    if (Pete.Element.gets('.Pete_draggable', this).length) {
+                    if (Pete.Element.gets('.Pete_draggable', this.dom).length) {
                         return false;
                     }
                 },
                 afternodedrop: function (e) {
-                    var aDragged = Pete.Element.gets('#dropZoneContainer .Pete_draggable', true),
+                    var dragged = Pete.Element.gets('#dropZoneContainer .Pete_draggable', true),
                         arr = [],
                         i, len;
 
-                    if (aDragged.length === 4) {
-                        for (i = 0, len = aDragged.length; i < len; i++) {
-                            arr.push(Pete.Element.get('span', aDragged[i], true).note);
+                    if (dragged.length === 4) {
+                        for (i = 0, len = dragged.length; i < len; i++) {
+                            arr.push(dragged[i].childNodes[0].note);
                         }
 
                         if ($('currentChord').currentChord === arr.join('')) {
                             alert('Correct!');
 
                             // Re-apply the original styles or else it looks like a$$.
-                            aDragged.forEach(function (v) {
+                            dragged.forEach(function (v) {
                                 Pete.Element.fly(v).setStyle(v.originalStyles);
 
                                 // Also, make sure to reset the snapped property!
@@ -519,19 +364,17 @@
             }
         });
 
-        init();
-
         // Note we're only binding one event listener for the entire page (because of this make sure each
         // <span> entirely covers each <a>).
         Pete.Element.fly('chordQuiz').on('click', function (e) {
-            var oTarget = e.target,
-                note, chord, sInversion;
+            var target = e.target,
+                note, chord, inversion;
 
-            if (oTarget.nodeName === 'SPAN' && oTarget.className !== 'blank') {
+            if (target.nodeName === 'SPAN' && target.className !== 'blank') {
                 // The classname needs to be trimmed b/c if it removeClass() was previously called on this then
                 // there will be an extra space in the classname, i.e., 'notes ' (is this a bug?).
-                Pete.Element.gets('span', $(Pete.trim(oTarget.className))).removeClass('selected');
-                Pete.Element.fly(oTarget).addClass('selected');
+                Pete.Element.gets('span', $(Pete.trim(target.className))).removeClass('selected');
+                Pete.Element.fly(target).addClass('selected');
 
                 // User selected one of each so see if he selected correctly.
                 if (Pete.Element.get('#notes span.selected', true) && Pete.Element.get('#chords span.selected', true) && Pete.Element.get('#inversions span.selected', true)) {
@@ -539,10 +382,10 @@
                     chord = Pete.Element.get('#chords .selected').value();
 
                     // Remove the space that was put in when the dom element was created, i.e., 'Second Inversion'.
-                    sInversion = Pete.Element.get('#inversions .selected').value().replace(/\s/, '');
+                    inversion = Pete.Element.get('#inversions .selected').value().replace(/\s/, '');
 
                     // Remember root position is the only inversion that doesn't have its inversion as part of its name in deepCopy.
-                    if (deepCopy[note][chord + (sInversion === 'RootPosition' ? '' : sInversion)] === $('currentChord').currentChord) {
+                    if (deepCopy[note][chord + (inversion === 'RootPosition' ? '' : inversion)] === $('currentChord').currentChord) {
                         alert('Correct!');
                         getChord();
                     } else {
@@ -571,9 +414,9 @@
             if (form.id === 'mainMenu') {
                 var chordQuiz = Pete.Element.get('chordQuiz'),
                     keyQuiz = Pete.Element.get('keySignaturesQuiz'),
-                    toggleElements = function (sDiv) {
+                    toggleElements = function (div) {
                         // Elements to toggle: the <h3>s, the value of #notes p, rest are self-evident.
-                        var a = (sDiv === 'chordQuiz') ?
+                        var a = (div === 'chordQuiz') ?
                             ['none', 'block'] :
                             ['block', 'none'];
 
