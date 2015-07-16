@@ -218,7 +218,7 @@
                     items: [
                         Pete.Element.create({tag: 'span',
                             attr: {
-                                clasname: name,
+                                className: name,
 
                                 // Add a space, i.e., 'Third Inversion'.
                                 innerHTML: name === 'inversions' ? a[i].replace(/(Position|Inversion)/, ' $1') : a[i]
@@ -376,8 +376,8 @@
                 Pete.Element.gets('span', $(Pete.trim(target.className))).removeClass('selected');
                 Pete.Element.fly(target).addClass('selected');
 
-                // User selected one of each so see if he selected correctly.
-                if (Pete.Element.get('#notes span.selected', true) && Pete.Element.get('#chords span.selected', true) && Pete.Element.get('#inversions span.selected', true)) {
+                // User selected one of each so see if they selected correctly.
+                if (Pete.Element.gets('#chordQuiz span.selected').length === 3) {
                     note = Pete.Element.get('#notes .selected').dom.note;
                     chord = Pete.Element.get('#chords .selected').value();
 
