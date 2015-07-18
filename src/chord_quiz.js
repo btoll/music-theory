@@ -14,7 +14,7 @@
 
         setQuiz();
 
-        $('inversions').style.visibility = (skillLevel !== 'beginner') ? 'visible' : 'hidden';
+        Pete.getDom('inversions').style.visibility = (skillLevel !== 'beginner') ? 'visible' : 'hidden';
 
         // Get first chord permutation.
         getChord();
@@ -171,18 +171,19 @@
         var permutations;
 
         if (skillLevel !== 'chordBuilder') {
+            Pete.Element.gets('span').removeClass('selected');
             permutations = cache[skillLevel].permutations;
 
             if (n === permutations.length) {
                 n = 0;
             }
 
-            $('currentChord').innerHTML = '<span>' + permutations[n].join('</span><span>');
+            Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].join('</span><span>');
 
             // We need to attach the array to an expando property since we need another way of comparing than
             // the value of the currentChord dom element (since the browser converts the entity when displaying
             // it and it no longer matches the entity when comparing the values in the event handler).
-            $('currentChord').currentChord = permutations[n];
+            Pete.getDom('currentChord').currentChord = permutations[n];
         } else {
             permutations = cache.chordBuilder;
 
@@ -190,12 +191,12 @@
                 n = 0;
             }
 
-            $('currentChord').innerHTML = '<span>' + permutations[n].chord + '</span>';
+            Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].chord + '</span>';
 
             // We need to attach the array to an expando property since we need another way of comparing than
             // the value of the currentChord dom element (since the browser converts the entity when displaying
             // it and it no longer matches the entity when comparing the values in the event handler).
-            $('currentChord').currentChord = permutations[n].notes;
+            Pete.getDom('currentChord').currentChord = permutations[n].notes;
         }
 
         n++;
@@ -225,7 +226,7 @@
                             }
                         })
                     ],
-                    parent: $(name)
+                    parent: Pete.getDom(name)
                 });
             }
         },
@@ -249,7 +250,7 @@
                             }
                         })
                     ],
-                    parent: $('notes')
+                    parent: Pete.getDom('notes')
                 });
             }
 
@@ -264,7 +265,7 @@
 
     reset = function () {
         // Get all child nodes within the drop zone that have a 'sortOrder' property.
-        var arr = Pete.makeArray($('notes').childNodes).concat(Pete.makeArray(Pete.Element.gets('#dropZoneContainer .Pete_draggable', true))).filter(function (v) {
+        var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.Element.gets('#dropZoneContainer .Pete_draggable', true))).filter(function (v) {
             // Should there be a better check?
             return (typeof v.sortOrder === 'number');
         }),
@@ -343,10 +344,10 @@
                             arr.push(dragged[i].childNodes[0].note);
                         }
 
-                        if ($('currentChord').currentChord === arr.join('')) {
+                        if (Pete.getDom('currentChord').currentChord === arr.join('')) {
                             alert('Correct!');
 
-                            // Re-apply the original styles or else it looks like a$$.
+                            // Re-apply the original styles or else it looks like ass.
                             dragged.forEach(function (v) {
                                 Pete.Element.fly(v).setStyle(v.originalStyles);
 
@@ -373,7 +374,7 @@
             if (target.nodeName === 'SPAN' && target.className !== 'blank') {
                 // The classname needs to be trimmed b/c if it removeClass() was previously called on this then
                 // there will be an extra space in the classname, i.e., 'notes ' (is this a bug?).
-                Pete.Element.gets('span', $(Pete.trim(target.className))).removeClass('selected');
+                Pete.Element.gets('span', Pete.getDom(Pete.trim(target.className))).removeClass('selected');
                 Pete.Element.fly(target).addClass('selected');
 
                 // User selected one of each so see if they selected correctly.
@@ -385,7 +386,7 @@
                     inversion = Pete.Element.get('#inversions .selected').value().replace(/\s/, '');
 
                     // Remember root position is the only inversion that doesn't have its inversion as part of its name in deepCopy.
-                    if (deepCopy[note][chord + (inversion === 'RootPosition' ? '' : inversion)] === $('currentChord').currentChord) {
+                    if (deepCopy[note][chord + (inversion === 'RootPosition' ? '' : inversion)] === Pete.getDom('currentChord').currentChord) {
                         alert('Correct!');
                         getChord();
                     } else {
@@ -396,7 +397,7 @@
 
                     // If beginner skill level is selected, make sure the 'Root Position' element is given the selected
                     // class (to understand why see the logic w/in the handler bound to the 'chordQuiz' element).
-                    if ($('beginner').checked) {
+                    if (Pete.getDom('beginner').checked) {
                         Pete.Element.get('#inversions span').addClass('selected');
                     }
                 }
@@ -424,8 +425,8 @@
 
                         // No matter which 'view' was selected remove any previously selected notes.
                         Pete.Element.gets('#notes span').removeClass('selected');
-                        Pete.Element.get('#chordQuiz h3 + h3', true).style.display = $('dropZoneContainer').style.display = a[0];
-                        Pete.Element.get('#chordQuiz h3', true).style.display = $('chordMenu').style.display = $('chords').style.display = $('inversions').style.display = a[1];
+                        Pete.Element.get('#chordQuiz h3 + h3', true).style.display = Pete.getDom('dropZoneContainer').style.display = a[0];
+                        Pete.Element.get('#chordQuiz h3', true).style.display = Pete.getDom('chordMenu').style.display = Pete.getDom('chords').style.display = Pete.getDom('inversions').style.display = a[1];
 
                         // Finally, reset the notes div (in case any were dragged in the chord builder).
                         reset();
@@ -474,8 +475,8 @@
 
         // If user agent is an iphone tweak the styles so everything fits in the screen.
         if (navigator.userAgent.indexOf('iPhone') !== -1 || navigator.userAgent.indexOf('Android') !== -1) {
-            $('chords').style.width = '450px';
-            $('inversions').style.width = '330px';
+            Pete.getDom('chords').style.width = '450px';
+            Pete.getDom('inversions').style.width = '330px';
         }
     });
 }());

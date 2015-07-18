@@ -55,15 +55,15 @@
                 n = 0;
             }
 
-            //$("currentKeySignature").innerHTML = "<span>" + notesObj[notes[n]].join("</span><span>");
-            //$("currentKeySignature").currentKeySignature = notesObj[notes[n]]; //we need to attach the array to an expando property since we need another way of comparing than the value of the currentChord dom element (since the browser converts the entity when displaying it and it no longer matches the entity when comparing the values in the event handler);
+            //Pete.getDom("currentKeySignature").innerHTML = "<span>" + notesObj[notes[n]].join("</span><span>");
+            //Pete.getDom("currentKeySignature").currentKeySignature = notesObj[notes[n]]; //we need to attach the array to an expando property since we need another way of comparing than the value of the currentChord dom element (since the browser converts the entity when displaying it and it no longer matches the entity when comparing the values in the event handler);
 
-            $('currentKeySignature').innerHTML = '<span>' + quizzes[n].join('</span><span>');
+            Pete.getDom('currentKeySignature').innerHTML = '<span>' + quizzes[n].join('</span><span>');
 
             // We need to attach the array to an expando property since we need another way of comparing than
             // the value of the currentChord dom element (since the browser converts the entity when displaying
             // it and it no longer matches the entity when comparing the values in the event handler).
-            $('currentKeySignature').currentKeySignature = quizzes[n];
+            Pete.getDom('currentKeySignature').currentKeySignature = quizzes[n];
 
             n++;
         };
@@ -87,7 +87,7 @@
                         }
                     })
                 ],
-                parent: $('keySignatures')
+                parent: Pete.getDom('keySignatures')
             });
         }
 
@@ -99,7 +99,8 @@
 
             if (oTarget.nodeName === 'SPAN') {
                 sNote = oTarget.note;
-                if (notesObj[sNote] === $('currentKeySignature').currentKeySignature) {
+
+                if (notesObj[sNote] === Pete.getDom('currentKeySignature').currentKeySignature) {
                     alert('Correct');
                     getChord();
                 } else {
