@@ -28,9 +28,7 @@ p {
   font: italic 14px "Trebuchet MS";
   margin: 10px 20px 0;
 }
-div#chordQuiz,
-div#chordBuilder,
-div#keySignaturesQuiz {
+div#chordBuilder {
   background: #FFF;
   border: 1px solid #AAA;
   margin: 20px auto;

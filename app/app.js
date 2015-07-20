@@ -12,10 +12,10 @@ Pete.ready(function () {
                     tag: 'li',
                     items: [{
                         tag: 'a',
-                        text: 'Chord Quiz',
+                        text: 'Chord Puzzle',
                         attr: {
-                            href: '#chord_quiz',
-                            title: 'Chord Quiz'
+                            href: '#chord_puzzle',
+                            title: 'Chord Puzzle'
                         }
                     }]
                 }, {
