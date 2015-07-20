@@ -1,6 +1,7 @@
 Pete.ready(function () {
-    // Change 'chord_builder' to 'Chord Builder'
-    var reQuizText = /^(.)(.*)(?:_)(.)(.*)$/
+    // Change 'chord_builder_quiz' to 'Chord Builder Quiz'.
+    var reReplaceUnderscore = /_/g,
+        reUppercase = /\b([a-zA-Z])/g,
         reReplaceHash = /^#/,
         cachedQuizzes = {};
 
@@ -15,8 +16,8 @@ Pete.ready(function () {
 
             // Construct the quiz menu from app.json.
             for (i = 0, len = quizzes.length; i < len; i++) {
-                quizText = quizzes[i].replace(reQuizText, function (a, $1, $2, $3, $4) {
-                    return $1.toUpperCase() + $2 + ' ' + $3.toUpperCase() + $4;
+                quizText = quizzes[i].replace(reReplaceUnderscore, ' ').replace(reUppercase, function (a, $1) {
+                    return $1.toUpperCase();
                 });
 
                 q.push({
