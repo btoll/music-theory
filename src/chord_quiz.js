@@ -294,7 +294,7 @@
         dropZone.append(frag);
     };
 
-    Pete.defer.autoWrap  = false;
+    Pete.defer.autoWrap = false;
 
     // Execute this callback after all requests have returned.
     Pete.defer.wrap(function () {

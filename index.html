@@ -1,27 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-<title>Music Theory Quiz</title>
-<link rel="stylesheet" type="text/css" href="build/music_theory.css"></link>
-<style type="text/css">
-.warning {
-    display: none;
-}
-</style>
-<!--[if IE]>
-<style type="text/css">
-.warning {
-    color: red;
-    display: block;
-    font-size: 13px;
-    margin-bottom: 5px;
-}
-</style>
-<![endif]-->
-<!--
+<!--<link rel="stylesheet" type="text/css" href="build/music_theory.css"></link>-->
 <script type="text/javascript" src="build/music_theory.js"></script>
--->
+<!--
 <script type="text/javascript" src="../PeteJS/src/Pete.prototype.js"></script>
 <script type="text/javascript" src="../PeteJS/src/Pete.js"></script>
 <script type="text/javascript" src="../PeteJS/src/Pete.Observer.js"></script>
@@ -36,71 +18,13 @@
 <script type="text/javascript" src="../PeteJS/src/request/Pete.ajax.js"></script>
 <script type="text/javascript" src="../PeteJS/src/request/Pete.defer.js"></script>
 <script type="text/javascript" src="../PeteJS/src/Pete.ux.js"></script>
-<script type="text/javascript" src="src/chord_quiz.js"></script>
-<script type="text/javascript" src="src/key_signatures_quiz.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+-->
+<script>
+</script>
 </head>
 
 <body>
-    <p class="warning">Warning: this functionality has not been properly tested on your browser and will probably not work!</p>
-
-    <form id="mainMenu" action="">
-        <fieldset>
-            <legend>Main Menu</legend>
-            <label><input type="radio" name="quiz" value="chordQuiz" /> Chord Quiz</label>
-            <label><input type="radio" name="quiz" value="chordBuilder" /> Chord Builder</label>
-            <label><input type="radio" name="quiz" value="keySignaturesQuiz" /> Key Signatures Quiz</label>
-        </fieldset>
-    </form>
-
-    <div id="chordQuiz" style="display: none;">
-        <form id="chordMenu" action="">
-            <fieldset>
-                <legend>Skill Level</legend>
-                <label><input type="radio" id="advanced" name="difficulty" value="advanced" checked="checked" /> Advanced</label>
-                <label><input type="radio" id="intermediate" name="difficulty" value="intermediate" /> Intermediate</label>
-                <label><input type="radio" id="beginner" name="difficulty" value="beginner" /> Beginner</label>
-            </fieldset>
-        </form>
-
-        <h3>Guess the chord below by selecting a Chord, Type and an Inversion</h3>
-        <h3>Build the chord below by selecting the Notes that make it up</h3>
-
-        <div id="currentChordContainer">
-            <div id="currentChord" class="clearfix"></div>
-            <button class="skipChord">Skip Chord</button>
-        </div>
-
-        <p>Drag a note into each box</p>
-        <div id="dropZoneContainer" class="clearfix" style="display: none;">
-            <div class="dropZone"></div>
-            <div class="dropZone"></div>
-            <div class="dropZone"></div>
-            <div class="dropZone"></div>
-        </div>
-
-        <p>Chord</p>
-        <div id="notes" class="clearfix">
-        </div>
-
-        <p>Type</p>
-        <div id="chords" class="clearfix">
-        </div>
-
-        <p>Inversion</p>
-        <div id="inversions" class="clearfix">
-        </div>
-    </div>
-
-    <div id="keySignaturesQuiz" style="display: none;">
-        <h3>Guess the key signature below by selecting the Key</h3>
-
-        <div id="currentKeySignature" class="clearfix">
-        </div>
-
-        <p>Key</p>
-        <div id="keySignatures" class="clearfix">
-        </div>
-    </div>
 </body>
 </html>
 
