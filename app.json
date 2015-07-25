@@ -1,6 +1,24 @@
 [
-    "chord_puzzle",
-    "chord_builder",
-    "key_signature"
+    {
+        "name": "chord_puzzle",
+        "data": {
+            "width": 800,
+            "height": 400
+        }
+    },
+    {
+        "name": "chord_builder",
+        "data": {
+            "width": 800,
+            "height": 450
+        }
+    },
+    {
+        "name": "key_signature",
+        "data": {
+            "width": 800,
+            "height": 300
+        }
+    }
 ]
 

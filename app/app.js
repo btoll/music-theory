@@ -8,25 +8,31 @@ Pete.ready(function () {
     Pete.ajax.load({
         url: 'app.json',
         success: function (response) {
-            var quizzes = JSON ?
+            var qs = JSON ?
                     JSON.parse(response) :
                     eval('[' + response + ']'),
-                q = [],
-                i, len, quizText;
+                quizMap = {},
+                items = [],
+                q, i, len, quizName, quizText;
 
             // Construct the quiz menu from app.json.
-            for (i = 0, len = quizzes.length; i < len; i++) {
-                quizText = quizzes[i].replace(reReplaceUnderscore, ' ').replace(reUppercase, function (a, $1) {
+            for (i = 0, len = qs.length; i < len; i++) {
+                q = qs[i];
+                quizName = q.name;
+
+                quizText = quizName.replace(reReplaceUnderscore, ' ').replace(reUppercase, function (a, $1) {
                     return $1.toUpperCase();
                 });
 
-                q.push({
+                quizMap[quizName] = q.data;
+
+                items.push({
                     tag: 'li',
                     items: [{
                         tag: 'a',
                         text: quizText,
                         attr: {
-                            href: '#' + quizzes[i],
+                            href: '#' + quizName,
                             title: quizText
                         }
                     }]
@@ -39,34 +45,35 @@ Pete.ready(function () {
                     tag: 'nav',
                     items: [{
                         tag: 'ul',
-                        items: q
+                        items: items
                     }]
                 }],
                 parent: document.body
             });
 
             Pete.Element.gets('nav a').on('click', function (e) {
-                var quiz = e.target.hash.replace(reReplaceHash, ''),
-                    iframeId = 'sandbox-' + quiz,
-                    dir = 'app/quizzes/' + quiz + '/',
+                var quizName = e.target.hash.replace(reReplaceHash, ''),
+                    quiz = quizMap[quizName],
+                    iframeId = 'sandbox-' + quizName,
+                    dir = 'app/quizzes/' + quizName + '/',
                     sandbox;
 
                 e.preventDefault();
 
                 // Return early if already downloaded.
-                if (cachedQuizzes[quiz]) {
+                if (cachedQuizzes[quizName]) {
                     return;
                 }
 
                 // Cache the quiz.
-                cachedQuizzes[quiz] = true;
+                cachedQuizzes[quizName] = true;
 
                 sandbox = Pete.Element.create({
                     tag: 'iframe',
                     id: iframeId,
                     style: {
-                        height: '300px',
-                        width: '800px'
+                        height: (quiz.height || 300) + 'px',
+                        width: (quiz.width || 800) + 'px'
                     },
                     parent: document.body
                 }),
