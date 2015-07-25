@@ -1,7 +1,6 @@
 (function () {
     // NOTES:
-    // - chordQuiz and chordBuilder use the same div but just turn on/off different elements depending on what radio button was selected
-    // - the types of chords that display (i.e., "Major7", "HalfDiminished7") depend on the properties of the deepCopy object
+    // The types of chords that display (i.e., 'Major7', 'HalfDiminished7') depend on the properties of the deepCopy object.
     var init = function (level) {
         skillLevel = level || 'advanced';
         // Reset the counter.
@@ -44,6 +43,7 @@
     notesObj,
     notesObjAdvanced,
 
+    // TODO: Move into core library.
     random = function () {
         return (Math.round(Math.random()) - 0.5);
     },
@@ -203,10 +203,6 @@
     },
 
     setQuiz = function () {
-        if (skillLevel === 'chordBuilder') {
-            return;
-        }
-
         var setElements = function (a, name) {
             // First remove everything but the title in the <p>, i.e., 'Type' and 'Inversion'.
             Pete.Element.gets('#' + name + ' a').remove();
@@ -324,7 +320,6 @@
             id: 'chordPuzzle',
             items: [{
                 tag: 'form',
-                id: 'chordMenu',
                 attr: {
                     action: ''
                 },
@@ -360,15 +355,6 @@
                         className: 'skipChord'
                     }
                 }]
-            }, {
-                tag: 'p',
-                text: 'Chord'
-            }, {
-                tag: 'div',
-                id: 'notes',
-                attr: {
-                    className: 'clearfix'
-                }
             }, {
                 tag: 'p',
                 text: 'Type'
@@ -438,7 +424,7 @@
 
         // Note we're only binding one event listener for the entire page (because of this make sure each
         // <span> entirely covers each <a>).
-        Pete.Element.fly('chordQuiz').on('click', function (e) {
+        Pete.Element.fly('chordPuzzle').on('click', function (e) {
             var target = e.target,
                 note, chord, inversion;
 
@@ -449,7 +435,7 @@
                 Pete.Element.fly(target).addClass('selected');
 
                 // User selected one of each so see if they selected correctly.
-                if (Pete.Element.gets('#chordQuiz span.selected').length === 3) {
+                if (Pete.Element.gets('#chordPuzzle span.selected').length === 3) {
                     note = Pete.Element.get('#notes .selected').dom.note;
                     chord = Pete.Element.get('#chords .selected').value();
 
@@ -467,7 +453,7 @@
                     Pete.Element.gets('span').removeClass('selected');
 
                     // If beginner skill level is selected, make sure the 'Root Position' element is given the selected
-                    // class (to understand why see the logic w/in the handler bound to the 'chordQuiz' element).
+                    // class (to understand why see the logic w/in the handler bound to the 'chordPuzzle' element).
                     if (Pete.getDom('beginner').checked) {
                         Pete.Element.get('#inversions span').addClass('selected');
                     }
@@ -483,65 +469,15 @@
             var form = e.target.form,
                 value = e.target.value;
 
-            if (form.id === 'mainMenu') {
-                var chordQuiz = Pete.Element.get('chordQuiz'),
-                    keyQuiz = Pete.Element.get('keySignaturesQuiz'),
-                    toggleElements = function (div) {
-                        // Elements to toggle: the <h3>s, the value of #notes p, rest are self-evident.
-                        var a = (div === 'chordQuiz') ?
-                            ['none', 'block'] :
-                            ['block', 'none'];
+            Pete.Element.get('#inversions span').removeClass('selected');
 
-                        chordQuiz.show();
-
-                        // No matter which 'view' was selected remove any previously selected notes.
-                        Pete.Element.gets('#notes span').removeClass('selected');
-                        Pete.Element.get('#chordQuiz h3 + h3', true).style.display = Pete.getDom('dropZoneContainer').style.display = a[0];
-                        Pete.Element.get('#chordQuiz h3', true).style.display = Pete.getDom('chordMenu').style.display = Pete.getDom('chords').style.display = Pete.getDom('inversions').style.display = a[1];
-
-                        // Finally, reset the notes div (in case any were dragged in the chord builder).
-                        reset();
-                    };
-
-                if (value === 'chordQuiz') {
-                    toggleElements('chordQuiz');
-
-                    // Hide the first paragraph but show every other paragraph.
-                    Pete.Element.get('h3 + div + p').hide();
-                    Pete.Element.gets('p + div + p').show();
-
-                    Pete.Element.gets('#notes a.notes').removeClass('Pete_draggable');
-                    keyQuiz.hide();
-                    init();
-                } else if (value === 'chordBuilder') {
-                    // Set this so we know which object to look up in the cache;
-                    skillLevel = 'chordBuilder';
-                    toggleElements('chordBuilder');
-
-                    // Show the first paragraph but hide every other paragraph.
-                    Pete.Element.get('h3 + div + p').show();
-                    Pete.Element.gets('p + div + p').hide();
-
-                    Pete.Element.gets('#notes a.notes').addClass('Pete_draggable');
-                    keyQuiz.hide();
-                    init(value);
-
-                } else {
-                    chordQuiz.hide();
-                    keyQuiz.show();
-                }
-
-            } else if (form.id === 'chordMenu') {
-                Pete.Element.get('#inversions span').removeClass('selected');
-
-                // If beginner skill level is selected, make sure the 'Root Position' element is given the selected
-                // class (to understand why see the logic w/in the handler bound to the 'chordQuiz' element).
-                if (value === 'beginner') {
-                    Pete.Element.get('#inversions span').addClass('selected');
-                }
-
-                init(value);
+            // If beginner skill level is selected, make sure the 'Root Position' element is given the selected
+            // class (to understand why see the logic w/in the handler bound to the 'chordPuzzle' element).
+            if (value === 'beginner') {
+                Pete.Element.get('#inversions span').addClass('selected');
             }
+
+            init(value);
         });
 
         // If user agent is an iphone tweak the styles so everything fits in the screen.
