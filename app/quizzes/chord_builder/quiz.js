@@ -17,7 +17,7 @@
     },
 
     skip = function () {
-        //reset();
+        reset();
         getChord();
     },
 
@@ -29,7 +29,6 @@
 
     // Gather the note names that will be used to build the dom elements.
     notes = [],
-    inversions = ['RootPosition', 'FirstInversion', 'SecondInversion', 'ThirdInversion'],
     // Holds the deep copy of either the notesObj object or both the notesObj and notesObjAdvanced objects.
     deepCopy = {},
     permutations = [],
@@ -218,6 +217,8 @@
     });
 
     Pete.ready(function () {
+        var notes;
+
         Pete.Element.create({
             tag: 'div',
             id: 'chordBuilder',
@@ -284,12 +285,11 @@
         });
 
         // Init the drag-n-drop stuff.
-        Pete.ux.DropZoneManager.add(Pete.Element.gets('#notes'), {
+        Pete.DD.initDD(Pete.Element.get('notes'), {
             sort: true
         });
 
-        Pete.ux.DropZoneManager.add(Pete.Element.gets('.dropZone'), {
-            snapToZone: true,
+        Pete.DD.initDD(Pete.Element.gets('.dropZone'), {
             subscribe: {
                 beforenodedrop: function (e) {
                     // Only drop if there isn't another child element in the target drop zone.
@@ -310,14 +310,6 @@
                         if (Pete.getDom('currentChord').currentChord === arr.join('')) {
                             alert('Correct!');
 
-                            // Re-apply the original styles or else it looks like ass.
-                            dragged.forEach(function (v) {
-                                Pete.Element.fly(v).setStyle(v.originalStyles);
-
-                                // Also, make sure to reset the snapped property!
-                                v.snapped = false;
-                            });
-
                             reset();
                             getChord();
                         } else {
@@ -333,7 +325,6 @@
         // If user agent is an iphone tweak the styles so everything fits in the screen.
         if (navigator.userAgent.indexOf('iPhone') !== -1 || navigator.userAgent.indexOf('Android') !== -1) {
             Pete.getDom('chords').style.width = '450px';
-            Pete.getDom('inversions').style.width = '330px';
         }
     });
 }());

@@ -8,42 +8,53 @@ http://www.positioniseverything.net/easyclearing.html
   height: 0;
   visibility: hidden;
 }
+
 .selected {
   background: #EED;
 }
+
 .blank {
   background: #CCC;
   cursor: default;
 }
+
 body {
   background: #CCC;
 }
+
 h3 {
   margin: 20px;
 }
+
 div {
   margin: 0 20px;
 }
+
 p {
   font: italic 14px "Trebuchet MS";
-  margin: 10px 20px 0;
+  margin: 10px 20px;
 }
+
 div#chordBuilder {
   background: #FFF;
   border: 1px solid #AAA;
   margin: 20px auto;
   width: 80%;
 }
+
 #chordMenu {
   margin: 10px;
 }
+
 #chordMenu label {
   margin: 10px;
 }
+
 #currentChordContainer {
   margin: 10px 0;
   position: relative;
 }
+
 #currentChord,
 #currentKeySignature {
   background: #EED;
@@ -54,20 +65,25 @@ div#chordBuilder {
   text-align: center;
   width: 285px;
 }
+
 #currentKeySignature {
   width: 455px;
 }
+
 .skipChord {
   position: absolute;
   top: 10px;
   left: 340px;
 }
+
 #notes {
   width: 365px;
 }
+
 #keySignatures {
   width: 425px;
 }
+
 a:link,
 a:visited,
 a:hover,
@@ -81,24 +97,31 @@ a:active {
   text-decoration: none;
   width: 40px;
 }
+
 a:hover {
   background: #EDD;
 }
+
 #chords a {
   width: 130px;
 }
+
 #inversions a {
   width: 130px;
 }
-span { /*make the <span>s completely fill their parent <a>s*/
+
+/*make the <span>s completely fill their parent <a>s*/
+span {
   display: block;
   padding: 10px 0;
 }
+
 #currentChord span,
 #currentKeySignature span {
   display: inline;
   margin: 0 20px;
 }
+
 /******************
 drag n drop stuff
 ******************/
@@ -109,16 +132,23 @@ drag n drop stuff
   opacity: .5;
   position: absolute;
 }
+
 .Pete_overDropZone {
   background: #ADD8E6 !important;
   border: 1px solid #000 !important;
   font-weight: bold;
 }
+
 #dropZoneContainer div {
   border: 1px solid #000;
   float: left;
-  height: 40px;
-  margin: 10px;
-  width: 40px;
+  height: 50px;
+  margin: 0 5px;
+  padding: 10px;
+  width: 50px;
+}
+
+#dropZoneContainer .Pete_draggable {
+    background-color: #9dbf82;
 }
 

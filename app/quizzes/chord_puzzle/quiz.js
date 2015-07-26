@@ -20,7 +20,6 @@
     },
 
     skip = function () {
-        //reset();
         getChord();
     },
 
@@ -220,37 +219,6 @@
         // Set an expando so this is only done once.
         setQuiz.initiated = true;
         setElements(cache[skillLevel].chords, 'chords');
-    },
-
-    reset = function () {
-        // Get all child nodes within the drop zone that have a 'sortOrder' property.
-        var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.Element.gets('#dropZoneContainer .Pete_draggable', true))).filter(function (v) {
-            // Should there be a better check?
-            return (typeof v.sortOrder === 'number');
-        }),
-        frag = document.createDocumentFragment(),
-        dropZone = Pete.Element.get('notes');
-
-        // Sort all nodes in this drop zone by their sort order property.
-        arr.sort(function (a, b) {
-            return a.sortOrder - b.sortOrder;
-        });
-
-        // Remove all the nodes...
-        dropZone.remove(true);
-
-        // ...and readd them to the document fragment.
-        arr.forEach(function (v) {
-            // Null out the inline styles that were bound to the element when it was dragged to the drop zone
-            // (b/c of specificity the the rules set in the class won't 'shine' through).
-            //v.style.border = v.style.margin = null;
-            delete v.style.border;
-            delete v.style.margin;
-
-            frag.appendChild(v);
-        });
-
-        dropZone.append(frag);
     };
 
     Pete.defer.autoWrap = false;
@@ -348,51 +316,6 @@
                 }
             }],
             parent: document.body
-        });
-
-        // Init the drag-n-drop stuff.
-        Pete.ux.DropZoneManager.add(Pete.Element.gets('#notes'), {
-            sort: true
-        });
-
-        Pete.ux.DropZoneManager.add(Pete.Element.gets('.dropZone'), {
-            snapToZone: true,
-            subscribe: {
-                beforenodedrop: function (e) {
-                    // Only drop if there isn't another child element in the target drop zone.
-                    if (Pete.Element.gets('.Pete_draggable', this.dom).length) {
-                        return false;
-                    }
-                },
-                afternodedrop: function (e) {
-                    var dragged = Pete.Element.gets('#dropZoneContainer .Pete_draggable', true),
-                        arr = [],
-                        i, len;
-
-                    if (dragged.length === 4) {
-                        for (i = 0, len = dragged.length; i < len; i++) {
-                            arr.push(dragged[i].childNodes[0].note);
-                        }
-
-                        if (Pete.getDom('currentChord').currentChord === arr.join('')) {
-                            alert('Correct!');
-
-                            // Re-apply the original styles or else it looks like ass.
-                            dragged.forEach(function (v) {
-                                Pete.Element.fly(v).setStyle(v.originalStyles);
-
-                                // Also, make sure to reset the snapped property!
-                                v.snapped = false;
-                            });
-
-                            reset();
-                            getChord();
-                        } else {
-                            alert('Incorrect!');
-                        }
-                    }
-                }
-            }
         });
 
         // Note we're only binding one event listener for the entire page (because of this make sure each
