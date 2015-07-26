@@ -13,7 +13,7 @@ Pete.ready(function () {
                     eval('[' + response + ']'),
                 quizMap = {},
                 items = [],
-                q, i, len, quizName, quizText;
+                q, i, len, quizName, quizText, links;
 
             // Construct the quiz menu from app.json.
             for (i = 0, len = qs.length; i < len; i++) {
@@ -51,7 +51,9 @@ Pete.ready(function () {
                 parent: document.body
             });
 
-            Pete.Element.gets('nav a').on('click', function (e) {
+            links = Pete.Element.gets('nav a');
+
+            links.on('click', function (e) {
                 var quizName = e.target.hash.replace(reReplaceHash, ''),
                     quiz = quizMap[quizName],
                     iframeId = 'sandbox-' + quizName,
@@ -97,6 +99,23 @@ Pete.ready(function () {
                     }
                 });
             });
+
+            // Disable the default browser behavior of showing link tooltip on hover.
+            (function () {
+                var title;
+
+                function removeTitle() {
+                    title = this.title;
+                    this.title = '';
+                }
+
+                function resetTitle() {
+                    this.title = title;
+                }
+
+                links.on('mouseover', removeTitle);
+                links.on('mouseout', resetTitle);
+            }());
         }
     });
 });
