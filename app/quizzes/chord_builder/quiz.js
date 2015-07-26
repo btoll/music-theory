@@ -11,7 +11,6 @@
         }
 
         setQuiz();
-        //Pete.Element.gets('#notes a.notes').addClass('Pete_draggable');
 
         // Get first chord permutation.
         getChord();

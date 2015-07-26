@@ -24,13 +24,10 @@
         getChord();
     },
 
-    chordBuilder = [],
-
     cache = {
         beginner: null,
         intermediate: null,
-        advanced: null,
-        chordBuilder: null
+        advanced: null
     },
 
     // Gather the note names that will be used to build the dom elements.
@@ -90,24 +87,6 @@
 
         // Reset the chords and permutations array.
         chords.length = permutations.length = 0;
-
-        // Get the permutations for the chordBuilder view.
-        // Since the default selection is advanced, deepCopy will contain all the possible chords on page load.
-        // Use it to create a hash of chord: notes.
-        if (!cache.chordBuilder) {
-            for (note in deepCopy) {
-                if (deepCopy.hasOwnProperty(note)) {
-                    for (var s in deepCopy[note]) {
-                        chordBuilder.push({chord: note + ' ' + s, notes: deepCopy[note][s].join('')});
-                    }
-                }
-
-                // Randomize after every iteration for the best results.
-                chordBuilder.sort(random);
-            }
-
-            cache.chordBuilder = chordBuilder;
-        }
 
         for (note in deepCopy) {
             if (deepCopy.hasOwnProperty(note)) {
@@ -170,34 +149,19 @@
     getChord = function () {
         var permutations;
 
-        if (skillLevel !== 'chordBuilder') {
-            Pete.Element.gets('span').removeClass('selected');
-            permutations = cache[skillLevel].permutations;
+        Pete.Element.gets('span').removeClass('selected');
+        permutations = cache[skillLevel].permutations;
 
-            if (n === permutations.length) {
-                n = 0;
-            }
-
-            Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].join('</span><span>');
-
-            // We need to attach the array to an expando property since we need another way of comparing than
-            // the value of the currentChord dom element (since the browser converts the entity when displaying
-            // it and it no longer matches the entity when comparing the values in the event handler).
-            Pete.getDom('currentChord').currentChord = permutations[n];
-        } else {
-            permutations = cache.chordBuilder;
-
-            if (n === permutations.length) {
-                n = 0;
-            }
-
-            Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].chord + '</span>';
-
-            // We need to attach the array to an expando property since we need another way of comparing than
-            // the value of the currentChord dom element (since the browser converts the entity when displaying
-            // it and it no longer matches the entity when comparing the values in the event handler).
-            Pete.getDom('currentChord').currentChord = permutations[n].notes;
+        if (n === permutations.length) {
+            n = 0;
         }
+
+        Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].join('</span><span>');
+
+        // We need to attach the array to an expando property since we need another way of comparing than
+        // the value of the currentChord dom element (since the browser converts the entity when displaying
+        // it and it no longer matches the entity when comparing the values in the event handler).
+        Pete.getDom('currentChord').currentChord = permutations[n];
 
         n++;
     },
@@ -355,6 +319,15 @@
                         className: 'skipChord'
                     }
                 }]
+            }, {
+                tag: 'p',
+                text: 'Chord'
+            }, {
+                tag: 'div',
+                id: 'notes',
+                attr: {
+                    className: 'clearfix'
+                }
             }, {
                 tag: 'p',
                 text: 'Type'
