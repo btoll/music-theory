@@ -296,6 +296,7 @@
         });
 
         Pete.DD.initDD(Pete.Element.gets('.dropZone'), {
+            dropProxy: false,
             subscribe: {
                 beforenodedrop: function (e) {
                     // Only drop if there isn't another child element in the target drop zone.

@@ -77,10 +77,10 @@ div#chordBuilder > div {
     width: 425px;
 }
 
-a:link,
-a:visited,
-a:hover,
-a:active {
+a.notes:link,
+a.notes:visited,
+a.notes:hover,
+a.notes:active {
     border: 1px solid #CCC;
     color: #000;
     float: left;
@@ -91,7 +91,7 @@ a:active {
     width: 40px;
 }
 
-a:hover {
+a.notes:hover {
     background: #EDD;
 }
 
@@ -139,9 +139,5 @@ drag n drop stuff
     margin: 0 5px;
     padding: 10px;
     width: 50px;
-}
-
-#dropZoneContainer .Pete_draggable {
-    background-color: #9dbf82;
 }
 
