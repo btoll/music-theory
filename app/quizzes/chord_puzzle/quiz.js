@@ -148,7 +148,7 @@
     getChord = function () {
         var permutations;
 
-        Pete.Element.gets('span').removeClass('selected');
+        Pete.gets('span').removeClass('selected');
         permutations = cache[skillLevel].permutations;
 
         if (n === permutations.length) {
@@ -168,10 +168,10 @@
     setQuiz = function () {
         var setElements = function (a, name) {
             // First remove everything but the title in the <p>, i.e., 'Type' and 'Inversion'.
-            Pete.Element.gets('#' + name + ' a').remove();
+            Pete.gets('#' + name + ' a').remove();
 
             for (i = 0, len = a.length; i < len; i++) {
-                Pete.Element.create({tag: 'a',
+                Pete.create({tag: 'a',
                     attr: {
                         href: '#'
                     },
@@ -192,7 +192,7 @@
 
         if (!setQuiz.initiated) {
             for (i = 0, len = notes.length; i < len; i++) {
-                Pete.Element.create({
+                Pete.create({
                     tag: 'a',
                     attr: {
                         className: 'notes',
@@ -247,7 +247,7 @@
     });
 
     Pete.ready(function () {
-        Pete.Element.create({
+        Pete.create({
             tag: 'div',
             id: 'chordPuzzle',
             items: [{
@@ -333,16 +333,16 @@
             if (target.nodeName === 'SPAN' && target.className !== 'blank') {
                 // The classname needs to be trimmed b/c if it removeClass() was previously called on this then
                 // there will be an extra space in the classname, i.e., 'notes ' (is this a bug?).
-                Pete.Element.gets('span', Pete.getDom(Pete.trim(target.className))).removeClass('selected');
+                Pete.gets('span', Pete.getDom(Pete.trim(target.className))).removeClass('selected');
                 Pete.Element.fly(target).addClass('selected');
 
                 // User selected one of each so see if they selected correctly.
-                if (Pete.Element.gets('#chordPuzzle span.selected').length === 3) {
-                    note = Pete.Element.get('#notes .selected').dom.note;
-                    chord = Pete.Element.get('#chords .selected').value();
+                if (Pete.gets('#chordPuzzle span.selected').length === 3) {
+                    note = Pete.get('#notes .selected').dom.note;
+                    chord = Pete.get('#chords .selected').value();
 
                     // Remove the space that was put in when the dom element was created, i.e., 'Second Inversion'.
-                    inversion = Pete.Element.get('#inversions .selected').value().replace(/\s/, '');
+                    inversion = Pete.get('#inversions .selected').value().replace(/\s/, '');
 
                     // Remember root position is the only inversion that doesn't have its inversion as part of its name in deepCopy.
                     if (deepCopy[note][chord + (inversion === 'RootPosition' ? '' : inversion)] === Pete.getDom('currentChord').currentChord) {
@@ -352,12 +352,12 @@
                         alert('Incorrect!');
                     }
 
-                    Pete.Element.gets('span').removeClass('selected');
+                    Pete.gets('span').removeClass('selected');
 
                     // If beginner skill level is selected, make sure the 'Root Position' element is given the selected
                     // class (to understand why see the logic w/in the handler bound to the 'chordPuzzle' element).
                     if (Pete.getDom('beginner').checked) {
-                        Pete.Element.get('#inversions span').addClass('selected');
+                        Pete.get('#inversions span').addClass('selected');
                     }
                 }
 
@@ -365,18 +365,18 @@
             }
         });
 
-        Pete.Element.get('.skipChord').on('click', skip);
+        Pete.get('.skipChord').on('click', skip);
 
-        Pete.Element.gets('input[type=radio]').on('click', function (e) {
+        Pete.gets('input[type=radio]').on('click', function (e) {
             var form = e.target.form,
                 value = e.target.value;
 
-            Pete.Element.get('#inversions span').removeClass('selected');
+            Pete.get('#inversions span').removeClass('selected');
 
             // If beginner skill level is selected, make sure the 'Root Position' element is given the selected
             // class (to understand why see the logic w/in the handler bound to the 'chordPuzzle' element).
             if (value === 'beginner') {
-                Pete.Element.get('#inversions span').addClass('selected');
+                Pete.get('#inversions span').addClass('selected');
             }
 
             init(value);

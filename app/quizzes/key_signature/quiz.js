@@ -73,7 +73,7 @@
     Pete.ready(function () {
         var i, len;
 
-        Pete.Element.create({
+        Pete.create({
             tag: 'div',
             id: 'keySignatureQuiz',
             items: [{
@@ -103,7 +103,7 @@
         });
 
         for (i = 0, len = notes.length; i < len; i++) {
-            Pete.Element.create({tag: 'a',
+            Pete.create({tag: 'a',
                 attr: {
                     href: '#'
                 },

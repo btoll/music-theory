@@ -139,7 +139,7 @@
         var i, len;
 
         for (i = 0, len = notes.length; i < len; i++) {
-            Pete.Element.create({
+            Pete.create({
                 tag: 'a',
                 attr: {
                     className: 'notes Pete_draggable',
@@ -162,12 +162,12 @@
 
     reset = function () {
         // Get all child nodes within the drop zone that have a 'sortOrder' property.
-        var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.Element.gets('#dropZoneContainer .Pete_draggable', true))).filter(function (v) {
+        var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.gets('#dropZoneContainer .Pete_draggable', true))).filter(function (v) {
             // Should there be a better check?
             return (typeof v.sortOrder === 'number');
         }),
         frag = document.createDocumentFragment(),
-        dropZone = Pete.Element.get('notes');
+        dropZone = Pete.get('notes');
 
         // Sort all nodes in this drop zone by their sort order property.
         arr.sort(function (a, b) {
@@ -219,7 +219,7 @@
     Pete.ready(function () {
         var notes;
 
-        Pete.Element.create({
+        Pete.create({
             tag: 'div',
             id: 'chordBuilder',
             items: [{
@@ -291,21 +291,21 @@
         });
 
         // Init the drag-n-drop stuff.
-        Pete.DD.initDD(Pete.Element.get('notes'), {
+        Pete.DD.initDD(Pete.get('notes'), {
             sort: true
         });
 
-        Pete.DD.initDD(Pete.Element.gets('.dropZone'), {
+        Pete.DD.initDD(Pete.gets('.dropZone'), {
             dropProxy: false,
             subscribe: {
                 beforenodedrop: function (e) {
                     // Only drop if there isn't another child element in the target drop zone.
-                    if (Pete.Element.gets('.Pete_draggable', this.dom).length) {
+                    if (Pete.gets('.Pete_draggable', this.dom).length) {
                         return false;
                     }
                 },
                 afternodedrop: function (e) {
-                    var dragged = Pete.Element.gets('#dropZoneContainer .Pete_draggable', true),
+                    var dragged = Pete.gets('#dropZoneContainer .Pete_draggable', true),
                         arr = [],
                         i, len;
 
@@ -327,7 +327,7 @@
             }
         });
 
-        Pete.Element.get('.skipChord').on('click', skip);
+        Pete.get('.skipChord').on('click', skip);
 
         // If user agent is an iphone tweak the styles so everything fits in the screen.
         if (navigator.userAgent.indexOf('iPhone') !== -1 || navigator.userAgent.indexOf('Android') !== -1) {
