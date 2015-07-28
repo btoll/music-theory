@@ -251,69 +251,75 @@
             tag: 'div',
             id: 'chordPuzzle',
             items: [{
-                tag: 'form',
-                attr: {
-                    action: ''
-                },
+                tag: 'div',
                 items: [{
-                    tag: 'legend',
-                    text: 'Skill Level'
+                    tag: 'form',
+                    attr: {
+                        action: ''
+                    },
+                    items: [{
+                        tag: 'legend',
+                        text: 'Skill Level'
+                    }, {
+                        tag: 'label',
+                        text: '<label><input type="radio" id="advanced" name="difficulty" value="advanced" checked="checked" /> Advanced</label>'
+                    }, {
+                        tag: 'label',
+                        text: '<label><input type="radio" id="intermediate" name="difficulty" value="intermediate" /> Intermediate</label>'
+                    }, {
+                        tag: 'label',
+                        text: '<label><input type="radio" id="beginner" name="difficulty" value="beginner" /> Beginner</label>'
+                    }]
                 }, {
-                    tag: 'label',
-                    text: '<label><input type="radio" id="advanced" name="difficulty" value="advanced" checked="checked" /> Advanced</label>'
+                    tag: 'h3',
+                    text: 'Guess the chord below by selecting a Chord, Type and an Inversion'
                 }, {
-                    tag: 'label',
-                    text: '<label><input type="radio" id="intermediate" name="difficulty" value="intermediate" /> Intermediate</label>'
-                }, {
-                    tag: 'label',
-                    text: '<label><input type="radio" id="beginner" name="difficulty" value="beginner" /> Beginner</label>'
+                    tag: 'div',
+                    id: 'currentChordContainer',
+                    items: [{
+                        tag: 'div',
+                        id: 'currentChord',
+                        attr: {
+                            className: 'clearfix'
+                        }
+                    }, {
+                        tag: 'button',
+                        text: 'Skip Chord',
+                        attr: {
+                            className: 'skipChord'
+                        }
+                    }]
                 }]
             }, {
-                tag: 'h3',
-                text: 'Guess the chord below by selecting a Chord, Type and an Inversion'
-            }, {
                 tag: 'div',
-                id: 'currentChordContainer',
                 items: [{
+                    tag: 'p',
+                    text: 'Chord'
+                }, {
                     tag: 'div',
-                    id: 'currentChord',
+                    id: 'notes',
                     attr: {
                         className: 'clearfix'
                     }
                 }, {
-                    tag: 'button',
-                    text: 'Skip Chord',
+                    tag: 'p',
+                    text: 'Type'
+                }, {
+                    tag: 'div',
+                    id: 'chords',
                     attr: {
-                        className: 'skipChord'
+                        className: 'clearfix'
+                    }
+                }, {
+                    tag: 'p',
+                    text: 'Inversion'
+                }, {
+                    tag: 'div',
+                    id: 'inversions',
+                    attr: {
+                        className: 'clearfix'
                     }
                 }]
-            }, {
-                tag: 'p',
-                text: 'Chord'
-            }, {
-                tag: 'div',
-                id: 'notes',
-                attr: {
-                    className: 'clearfix'
-                }
-            }, {
-                tag: 'p',
-                text: 'Type'
-            }, {
-                tag: 'div',
-                id: 'chords',
-                attr: {
-                    className: 'clearfix'
-                }
-            }, {
-                tag: 'p',
-                text: 'Inversion'
-            }, {
-                tag: 'div',
-                id: 'inversions',
-                attr: {
-                    className: 'clearfix'
-                }
             }],
             parent: document.body
         });

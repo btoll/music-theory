@@ -74,7 +74,9 @@ Pete.ready(function () {
                     tag: 'iframe',
                     id: iframeId,
                     style: {
+                        borderWidth: 0,
                         height: (quiz.height || 300) + 'px',
+                        verticalAlign: 'top',
                         width: (quiz.width || 800) + 'px'
                     },
                     parent: document.body

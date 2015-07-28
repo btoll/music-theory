@@ -2,150 +2,143 @@
 http://www.positioniseverything.net/easyclearing.html
 */
 .clearfix:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  visibility: hidden;
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
 }
 
 .selected {
-  background: #EED;
+    background: #EED;
 }
 
 .blank {
-  background: #CCC;
-  cursor: default;
+    background: #CCC;
+    cursor: default;
 }
 
+html,
 body {
-  background: #CCC;
-}
-
-h3 {
-  margin: 20px;
+    margin: 0;
+    padding: 0;
 }
 
 div {
-  margin: 0 20px;
+    margin: 0 20px;
 }
 
 p {
-  font: italic 14px "Trebuchet MS";
-  margin: 10px 20px;
+    font: italic 14px "Trebuchet MS";
+    margin: 10px 20px;
 }
 
 div#chordBuilder {
-  background: #FFF;
-  border: 1px solid #AAA;
-  margin: 20px auto;
-  width: 80%;
+    background: #FFF;
+    margin: 20px auto;
 }
 
-#chordMenu {
-  margin: 10px;
-}
-
-#chordMenu label {
-  margin: 10px;
+div#chordBuilder > div {
+    margin: 0 auto;
+    width: 480px;
 }
 
 #currentChordContainer {
-  margin: 10px 0;
-  position: relative;
+    margin: 10px 0;
+    position: relative;
 }
 
 #currentChord,
 #currentKeySignature {
-  background: #EED;
-  border: 2px solid #CCC;
-  color: blue;
-  font-weight: bold;
-  padding: 10px;
-  text-align: center;
-  width: 285px;
+    background: #EED;
+    border: 2px solid #CCC;
+    color: blue;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    width: 285px;
 }
 
 #currentKeySignature {
-  width: 455px;
+    width: 455px;
 }
 
 .skipChord {
-  position: absolute;
-  top: 10px;
-  left: 340px;
+    position: absolute;
+    top: 10px;
+    left: 340px;
 }
 
 #notes {
-  width: 365px;
+    width: 365px;
 }
 
 #keySignatures {
-  width: 425px;
+    width: 425px;
 }
 
 a:link,
 a:visited,
 a:hover,
 a:active {
-  border: 1px solid #CCC;
-  color: #000;
-  float: left;
-  height: 40px;
-  margin: 5px;
-  text-align: center;
-  text-decoration: none;
-  width: 40px;
+    border: 1px solid #CCC;
+    color: #000;
+    float: left;
+    height: 40px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    width: 40px;
 }
 
 a:hover {
-  background: #EDD;
+    background: #EDD;
 }
 
 #chords a {
-  width: 130px;
+    width: 130px;
 }
 
 #inversions a {
-  width: 130px;
+    width: 130px;
 }
 
 /*make the <span>s completely fill their parent <a>s*/
 span {
-  display: block;
-  padding: 10px 0;
+    display: block;
+    padding: 10px 0;
 }
 
 #currentChord span,
 #currentKeySignature span {
-  display: inline;
-  margin: 0 20px;
+    display: inline;
+    margin: 0 20px;
 }
 
 /******************
 drag n drop stuff
 ******************/
 .Pete_dragging {
-  border: 1px dashed #000 !important;
-  display: none;
-  margin: 0;
-  opacity: .5;
-  position: absolute;
+    border: 1px dashed #000 !important;
+    display: none;
+    margin: 0;
+    opacity: .5;
+    position: absolute;
 }
 
 .Pete_overDropZone {
-  background: #ADD8E6 !important;
-  border: 1px solid #000 !important;
-  font-weight: bold;
+    background: #ADD8E6 !important;
+    border: 1px solid #000 !important;
+    font-weight: bold;
 }
 
 #dropZoneContainer div {
-  border: 1px solid #000;
-  float: left;
-  height: 50px;
-  margin: 0 5px;
-  padding: 10px;
-  width: 50px;
+    border: 1px solid #000;
+    float: left;
+    height: 50px;
+    margin: 0 5px;
+    padding: 10px;
+    width: 50px;
 }
 
 #dropZoneContainer .Pete_draggable {

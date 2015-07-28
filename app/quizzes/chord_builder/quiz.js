@@ -223,63 +223,69 @@
             tag: 'div',
             id: 'chordBuilder',
             items: [{
-                tag: 'h3',
-                text: 'Build the chord below by selecting the Notes that make it up'
+                tag: 'div',
+                items: [{
+                    tag: 'h3',
+                    text: 'Build the chord below by selecting the Notes that make it up'
+                }, {
+                    tag: 'div',
+                    id: 'currentChordContainer',
+                    items: [{
+                        tag: 'div',
+                        id: 'currentChord',
+                        attr: {
+                            className: 'clearfix'
+                        }
+                    }, {
+                        tag: 'button',
+                        text: 'Skip Chord',
+                        attr: {
+                            className: 'skipChord'
+                        }
+                    }]
+                }]
             }, {
                 tag: 'div',
-                id: 'currentChordContainer',
                 items: [{
+                    tag: 'p',
+                    text: 'Drag a note into each box'
+                }, {
                     tag: 'div',
-                    id: 'currentChord',
+                    id: 'dropZoneContainer',
+                    attr: {
+                        className: 'clearfix'
+                    },
+                    items: [{
+                        tag: 'div',
+                        attr: {
+                            className: 'dropZone'
+                        }
+                    }, {
+                        tag: 'div',
+                        attr: {
+                            className: 'dropZone'
+                        }
+                    }, {
+                        tag: 'div',
+                        attr: {
+                            className: 'dropZone'
+                        }
+                    }, {
+                        tag: 'div',
+                        attr: {
+                            className: 'dropZone'
+                        }
+                    }]
+                }, {
+                    tag: 'p',
+                    text: 'Chord'
+                }, {
+                    tag: 'div',
+                    id: 'notes',
                     attr: {
                         className: 'clearfix'
                     }
-                }, {
-                    tag: 'button',
-                    text: 'Skip Chord',
-                    attr: {
-                        className: 'skipChord'
-                    }
                 }]
-            }, {
-                tag: 'p',
-                text: 'Drag a note into each box'
-            }, {
-                tag: 'div',
-                id: 'dropZoneContainer',
-                attr: {
-                    className: 'clearfix'
-                },
-                items: [{
-                    tag: 'div',
-                    attr: {
-                        className: 'dropZone'
-                    }
-                }, {
-                    tag: 'div',
-                    attr: {
-                        className: 'dropZone'
-                    }
-                }, {
-                    tag: 'div',
-                    attr: {
-                        className: 'dropZone'
-                    }
-                }, {
-                    tag: 'div',
-                    attr: {
-                        className: 'dropZone'
-                    }
-                }]
-            }, {
-                tag: 'p',
-                text: 'Chord'
-            }, {
-                tag: 'div',
-                id: 'notes',
-                attr: {
-                    className: 'clearfix'
-                }
             }],
             parent: document.body
         });

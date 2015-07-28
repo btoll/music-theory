@@ -2,48 +2,46 @@
 http://www.positioniseverything.net/easyclearing.html
 */
 .clearfix:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  visibility: hidden;
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
 }
+
 .selected {
-  background: #EED;
+    background: #EED;
 }
+
 .blank {
-  background: #CCC;
-  cursor: default;
+    background: #CCC;
+    cursor: default;
 }
+
 body {
-  background: #CCC;
+    margin: 0;
+    padding: 0;
 }
-h3 {
-  margin: 20px;
-}
+
 div {
-  margin: 0 20px;
+    margin: 0 20px;
 }
+
 p {
     font: italic 14px "Trebuchet MS";
     margin: 10px 20px 0;
 }
+
 div#keySignatureQuiz {
     background: #FFF;
-    border: 1px solid #AAA;
     margin: 20px auto;
-    width: 80%;
 }
-#chordMenu {
-    margin: 10px;
-}
-#chordMenu label {
-    margin: 10px;
-}
+
 #currentChordContainer {
     margin: 10px 0;
     position: relative;
 }
+
 #currentChord,
 #currentKeySignature {
     background: #EED;
@@ -54,20 +52,25 @@ div#keySignatureQuiz {
     text-align: center;
     width: 285px;
 }
+
 #currentKeySignature {
     width: 455px;
 }
+
 .skipChord {
     position: absolute;
     top: 10px;
     left: 340px;
 }
+
 #notes {
     width: 365px;
 }
+
 #keySignatures {
     width: 425px;
 }
+
 a:link,
 a:visited,
 a:hover,
@@ -81,20 +84,25 @@ a:active {
     text-decoration: none;
     width: 40px;
 }
+
 a:hover {
     background: #EDD;
 }
+
 #chords a {
     width: 130px;
 }
+
 #inversions a {
     width: 130px;
 }
+
 /*make the <span>s completely fill their parent <a>s*/
 span {
     display: block;
     padding: 10px 0;
 }
+
 #currentChord span,
 #currentKeySignature span {
     display: inline;
