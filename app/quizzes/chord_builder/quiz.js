@@ -2,6 +2,48 @@
     // NOTES:
     // The types of chords that display (i.e., "Major7", "HalfDiminished7") depend on the properties of the deepCopy object.
     var init = function (level) {
+        // Init the drag-n-drop stuff.
+        // 'Global' values for all object zones should be defined in the config.
+        var dd = Pete.compose(Pete.DD, {
+            dragCls: 'notes'
+        });
+
+        dd.initDD(Pete.get('notes'), {
+            sort: true
+        });
+
+        dd.initDD(Pete.gets('.dropZone'), {
+            //dropProxy: false,
+            subscribe: {
+                beforenodedrop: function (e) {
+                    // Only drop if there isn't another child element in the target drop zone.
+                    if (Pete.gets('.' + e.dragCls, this.dom).length) {
+                        return false;
+                    }
+                },
+                afternodedrop: function (e) {
+                    var dragged = Pete.gets('#dropZoneContainer .' + e.dragCls, true),
+                        arr = [],
+                        i, len;
+
+                    if (dragged.length === 4) {
+                        for (i = 0, len = dragged.length; i < len; i++) {
+                            arr.push(dragged[i].childNodes[0].note);
+                        }
+
+                        if (Pete.getDom('currentChord').currentChord === arr.join('')) {
+                            alert('Correct!');
+
+                            reset();
+                            getChord();
+                        } else {
+                            alert('Incorrect!');
+                        }
+                    }
+                }
+            }
+        });
+
         // Reset the counter.
         n = 0;
 
@@ -142,7 +184,7 @@
             Pete.create({
                 tag: 'a',
                 attr: {
-                    className: 'notes Pete_draggable',
+                    className: 'notes',
                     href: '#',
                     sortOrder: i
                 },
@@ -288,43 +330,6 @@
                 }]
             }],
             parent: document.body
-        });
-
-        // Init the drag-n-drop stuff.
-        Pete.DD.initDD(Pete.get('notes'), {
-            sort: true
-        });
-
-        Pete.DD.initDD(Pete.gets('.dropZone'), {
-            dropProxy: false,
-            subscribe: {
-                beforenodedrop: function (e) {
-                    // Only drop if there isn't another child element in the target drop zone.
-                    if (Pete.gets('.Pete_draggable', this.dom).length) {
-                        return false;
-                    }
-                },
-                afternodedrop: function (e) {
-                    var dragged = Pete.gets('#dropZoneContainer .Pete_draggable', true),
-                        arr = [],
-                        i, len;
-
-                    if (dragged.length === 4) {
-                        for (i = 0, len = dragged.length; i < len; i++) {
-                            arr.push(dragged[i].childNodes[0].note);
-                        }
-
-                        if (Pete.getDom('currentChord').currentChord === arr.join('')) {
-                            alert('Correct!');
-
-                            reset();
-                            getChord();
-                        } else {
-                            alert('Incorrect!');
-                        }
-                    }
-                }
-            }
         });
 
         Pete.get('.skipChord').on('click', skip);
