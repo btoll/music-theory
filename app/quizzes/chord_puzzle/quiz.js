@@ -253,6 +253,9 @@
             items: [{
                 tag: 'div',
                 items: [{
+                    tag: 'h3',
+                    text: 'Guess the chord below by selecting a Chord, Type and an Inversion'
+                }, {
                     tag: 'form',
                     attr: {
                         action: ''
@@ -270,9 +273,6 @@
                         tag: 'label',
                         text: '<label><input type="radio" id="beginner" name="difficulty" value="beginner" /> Beginner</label>'
                     }]
-                }, {
-                    tag: 'h3',
-                    text: 'Guess the chord below by selecting a Chord, Type and an Inversion'
                 }, {
                     tag: 'div',
                     id: 'currentChordContainer',
