@@ -58,7 +58,7 @@
         getChord();
     },
 
-    skip = function () {
+    skipChord = function () {
         reset();
         getChord();
     },
@@ -204,7 +204,7 @@
 
     reset = function () {
         // Get all child nodes within the drop zone that have a 'sortOrder' property.
-        var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.gets('#dropZoneContainer .Pete_draggable', true))).filter(function (v) {
+        var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.gets('#dropZoneContainer .notes', true))).filter(function (v) {
             // Should there be a better check?
             return (typeof v.sortOrder === 'number');
         }),
@@ -332,7 +332,7 @@
             parent: document.body
         });
 
-        Pete.get('.skipChord').on('click', skip);
+        Pete.get('.skipChord').on('click', skipChord);
 
         // If user agent is an iphone tweak the styles so everything fits in the screen.
         if (navigator.userAgent.indexOf('iPhone') !== -1 || navigator.userAgent.indexOf('Android') !== -1) {
