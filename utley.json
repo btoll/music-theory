@@ -1,16 +1,31 @@
 {
     "css": [{
         "src": [
-            "../PeteJS/resources/css",
-            "resources/css"
+            "../PeteJS/resources/css/",
+            "resources/css/"
         ],
         "output": "build/music_theory.css",
         "version": "1.0.0"
+    }, {
+        "src": [
+            "app/quizzes/chord_puzzle/"
+        ],
+        "output": "build/quizzes/chord_puzzle/quiz.css"
+    }, {
+        "src": [
+            "app/quizzes/chord_builder/"
+        ],
+        "output": "build/quizzes/chord_builder/quiz.css"
+    }, {
+        "src": [
+            "app/quizzes/key_signature/"
+        ],
+        "output": "build/quizzes/key_signature/quiz.css"
     }],
 
     "js": [{
         "src": [
-            "../PeteJS/src"
+            "../PeteJS/src/"
         ],
         "output": "build/pete.js",
         "version": "1.0.0",
@@ -23,7 +38,7 @@
         ]
     }, {
         "src": [
-            "../PeteJS/src",
+            "../PeteJS/src/",
             "app/app.js"
         ],
         "output": "build/music_theory.js",
@@ -35,6 +50,21 @@
             "Pete.Element.js",
             "Pete.Composite.js"
         ]
+    }, {
+        "src": [
+            "app/quizzes/chord_puzzle/"
+        ],
+        "output": "build/quizzes/chord_puzzle/quiz.js"
+    }, {
+        "src": [
+            "app/quizzes/chord_builder/"
+        ],
+        "output": "build/quizzes/chord_builder/quiz.js"
+    }, {
+        "src": [
+            "app/quizzes/key_signature/"
+        ],
+        "output": "build/quizzes/key_signature/quiz.js"
     }]
 }
 
