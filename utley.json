@@ -1,4 +1,8 @@
 {
+    "clean": [{
+        "run": "rm -rf build"
+    }],
+
     "css": [{
         "src": [
             "../PeteJS/resources/css/",
@@ -6,11 +10,6 @@
         ],
         "output": "build/music_theory.css",
         "version": "1.0.0"
-    }, {
-        "src": [
-            "app/quizzes/chord_puzzle/"
-        ],
-        "output": "build/quizzes/chord_puzzle/quiz.css"
     }, {
         "src": [
             "app/quizzes/chord_builder/"
@@ -52,11 +51,6 @@
         ]
     }, {
         "src": [
-            "app/quizzes/chord_puzzle/"
-        ],
-        "output": "build/quizzes/chord_puzzle/quiz.js"
-    }, {
-        "src": [
             "app/quizzes/chord_builder/"
         ],
         "output": "build/quizzes/chord_builder/quiz.js"
@@ -65,6 +59,73 @@
             "app/quizzes/key_signature/"
         ],
         "output": "build/quizzes/key_signature/quiz.js"
-    }]
+    }],
+
+    "json": [{
+        "src": [
+            "app.json"
+        ],
+        "output": "build/app.json"
+    }, {
+        "src": [
+            "app/chords/sevenths/basic.json"
+        ],
+        "output": "build/chords/sevenths/basic.json"
+    }, {
+        "src": [
+            "app/chords/sevenths/advanced.json"
+        ],
+        "output": "build/chords/sevenths/advanced.json"
+    }],
+
+    "quizzes": {
+        "chord_puzzle": [{
+            "css": [{
+                "src": [
+                    "app/quizzes/chord_puzzle/"
+                ],
+                "output": "build/quizzes/chord_puzzle/quiz.css"
+            }],
+
+            "js": [{
+                "src": [
+                    "app/quizzes/chord_puzzle/"
+                ],
+                "output": "build/quizzes/chord_puzzle/quiz.js"
+            }]
+        }],
+
+        "chord_builder": [{
+            "css": [{
+                "src": [
+                    "app/quizzes/chord_builder/"
+                ],
+                "output": "build/quizzes/chord_builder/quiz.css"
+            }],
+
+            "js": [{
+                "src": [
+                    "app/quizzes/chord_builder/"
+                ],
+                "output": "build/quizzes/chord_builder/quiz.js"
+            }]
+        }],
+
+        "key_signature": [{
+            "css": [{
+                "src": [
+                    "app/quizzes/key_signature/"
+                ],
+                "output": "build/quizzes/key_signature/quiz.css"
+            }],
+
+            "js": [{
+                "src": [
+                    "app/quizzes/key_signature/"
+                ],
+                "output": "build/quizzes/key_signature/quiz.js"
+            }]
+        }]
+    }
 }
 
