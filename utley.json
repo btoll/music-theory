@@ -11,21 +11,16 @@
         "output": "build/music_theory.css",
         "version": "1.0.0"
     }, {
-        "src": [
-            "app/quizzes/chord_builder/"
-        ],
+        "src": "app/quizzes/chord_builder/",
         "output": "build/quizzes/chord_builder/quiz.css"
     }, {
-        "src": [
-            "app/quizzes/key_signature/"
-        ],
+        "src": "app/quizzes/key_signature/",
         "output": "build/quizzes/key_signature/quiz.css"
     }],
 
     "js": [{
-        "src": [
-            "../PeteJS/src/"
-        ],
+        "name": "Pete",
+        "src": "../PeteJS/src/",
         "output": "build/pete.js",
         "version": "1.0.0",
         "dependencies": [
@@ -37,92 +32,58 @@
         ]
     }, {
         "src": [
-            "../PeteJS/src/",
+            "@Pete",
             "app/app.js"
         ],
-        "output": "build/music_theory.js",
-        "version": "1.0.0",
-        "dependencies": [
-            "Pete.prototype.js",
-            "Pete.js",
-            "Pete.Observer.js",
-            "Pete.Element.js",
-            "Pete.Composite.js"
-        ]
-    }, {
-        "src": [
-            "app/quizzes/chord_builder/"
-        ],
-        "output": "build/quizzes/chord_builder/quiz.js"
-    }, {
-        "src": [
-            "app/quizzes/key_signature/"
-        ],
-        "output": "build/quizzes/key_signature/quiz.js"
+        "output": "build/music_theory.js"
     }],
 
     "json": [{
-        "src": [
-            "app.json"
-        ],
+        "src": "app.json",
         "output": "build/app.json"
-    }, {
-        "src": [
-            "app/chords/sevenths/basic.json"
-        ],
-        "output": "build/chords/sevenths/basic.json"
-    }, {
-        "src": [
-            "app/chords/sevenths/advanced.json"
-        ],
-        "output": "build/chords/sevenths/advanced.json"
     }],
 
     "quizzes": {
         "chord_puzzle": [{
             "css": [{
-                "src": [
-                    "app/quizzes/chord_puzzle/"
-                ],
+                "src": "app/quizzes/chord_puzzle/",
                 "output": "build/quizzes/chord_puzzle/quiz.css"
             }],
 
             "js": [{
-                "src": [
-                    "app/quizzes/chord_puzzle/"
-                ],
+                "src": "app/quizzes/chord_puzzle/",
                 "output": "build/quizzes/chord_puzzle/quiz.js"
+            }],
+
+            "json": [{
+                "src": "app/chords/sevenths/basic.json",
+                "output": "build/chords/sevenths/basic.json"
+            }, {
+                "src": "app/chords/sevenths/advanced.json",
+                "output": "build/chords/sevenths/advanced.json"
             }]
         }],
 
         "chord_builder": [{
             "css": [{
-                "src": [
-                    "app/quizzes/chord_builder/"
-                ],
+                "src": "app/quizzes/chord_builder/",
                 "output": "build/quizzes/chord_builder/quiz.css"
             }],
 
             "js": [{
-                "src": [
-                    "app/quizzes/chord_builder/"
-                ],
+                "src": "app/quizzes/chord_builder/",
                 "output": "build/quizzes/chord_builder/quiz.js"
             }]
         }],
 
         "key_signature": [{
             "css": [{
-                "src": [
-                    "app/quizzes/key_signature/"
-                ],
+                "src": "app/quizzes/key_signature/",
                 "output": "build/quizzes/key_signature/quiz.css"
             }],
 
             "js": [{
-                "src": [
-                    "app/quizzes/key_signature/"
-                ],
+                "src": "app/quizzes/key_signature/",
                 "output": "build/quizzes/key_signature/quiz.js"
             }]
         }]
