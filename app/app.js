@@ -83,9 +83,9 @@ Pete.ready(function () {
                 }),
 
                 Pete.ajax.load({
-                    url: 'app/template.html',
+                    url: 'template.html',
                     success: function (response, request) {
-                        var doc = Pete.getDom(iframeId).contentDocument;
+                        var doc = Pete.getDom(iframeId).contentDocument,
                             tpl = Pete.compose(Pete.Template, {
                                 html: response
                             });
