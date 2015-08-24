@@ -62,9 +62,8 @@
 
     // Collect all of the arrays from within the deepCopy object.
     getArrays = function () {
-        var arr = [],
-            // Gather the chord names that will be used to build the dom elements.
-            chords = [],
+        // Gather the chord names that will be used to build the dom elements.
+        var chords = [],
             gotChords = false,
             note, tone, chord;
 
@@ -368,8 +367,7 @@
         Pete.get('.skipChord').on('click', skip);
 
         Pete.gets('input[type=radio]').on('click', function (e) {
-            var form = e.target.form,
-                value = e.target.value;
+            var value = e.target.value;
 
             Pete.get('#inversions span').removeClass('selected');
 

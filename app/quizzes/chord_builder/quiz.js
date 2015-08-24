@@ -1,7 +1,7 @@
 (function () {
     // NOTES:
     // The types of chords that display (i.e., "Major7", "HalfDiminished7") depend on the properties of the deepCopy object.
-    var init = function (level) {
+    var init = function () {
         // Init the drag-n-drop stuff.
         // 'Global' values for all object zones should be defined in the config.
         var dd = Pete.compose(Pete.DD, {
@@ -83,9 +83,8 @@
 
     // Collect all of the arrays from within the deepCopy object.
     getArrays = function () {
-        var arr = [],
-            // Gather the chord names that will be used to build the dom elements.
-            chords = [],
+        // Gather the chord names that will be used to build the dom elements.
+        var chords = [],
             gotChords = false,
             note, tone, chord;
 
@@ -259,8 +258,6 @@
     });
 
     Pete.ready(function () {
-        var notes;
-
         Pete.create({
             tag: 'div',
             id: 'chordBuilder',

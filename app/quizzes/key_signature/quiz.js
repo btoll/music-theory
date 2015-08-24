@@ -1,8 +1,6 @@
 (function () {
     // Gather the note names that will be used to build the dom elements.
     var notes = [],
-        // Gather the chord names that will be used to build the dom elements.
-        chords = [],
         // Holds the permutations.
         quizzes = [],
 
@@ -30,8 +28,7 @@
 
         // Collect all of the arrays from within the notesObj object.
         getArrays = function () {
-            var arr = [],
-                prop;
+            var prop;
 
             for (prop in notesObj) {
                 if (notesObj.hasOwnProperty(prop)) {

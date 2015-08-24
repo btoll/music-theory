@@ -57,8 +57,7 @@ Pete.ready(function () {
                 var quizName = e.target.hash.replace(reReplaceHash, ''),
                     quiz = quizMap[quizName],
                     iframeId = 'sandbox-' + quizName,
-                    dir = 'app/quizzes/' + quizName + '/',
-                    sandbox;
+                    dir = 'app/quizzes/' + quizName + '/';
 
                 e.preventDefault();
 
@@ -70,7 +69,7 @@ Pete.ready(function () {
                 // Cache the quiz.
                 cachedQuizzes[quizName] = true;
 
-                sandbox = Pete.Element.create({
+                Pete.Element.create({
                     tag: 'iframe',
                     id: iframeId,
                     style: {
@@ -84,7 +83,7 @@ Pete.ready(function () {
 
                 Pete.ajax.load({
                     url: 'template.html',
-                    success: function (response, request) {
+                    success: function (response) {
                         var doc = Pete.getDom(iframeId).contentDocument,
                             tpl = Pete.compose(Pete.Template, {
                                 html: response
