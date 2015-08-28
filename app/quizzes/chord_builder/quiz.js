@@ -58,179 +58,179 @@
         getChord();
     },
 
-    skipChord = function () {
-        reset();
-        getChord();
-    },
+        skipChord = function () {
+            reset();
+            getChord();
+        },
 
-    chordBuilder = [],
+        chordBuilder = [],
 
-    cache = {
-        chordBuilder: null
-    },
+        cache = {
+            chordBuilder: null
+        },
 
-    // Gather the note names that will be used to build the dom elements.
-    notes = [],
-    // Holds the deep copy of either the notesObj object or both the notesObj and notesObjAdvanced objects.
-    deepCopy = {},
-    permutations = [],
-    notesObj,
-    notesObjAdvanced,
+        // Gather the note names that will be used to build the dom elements.
+        notes = [],
+        // Holds the deep copy of either the notesObj object or both the notesObj and notesObjAdvanced objects.
+        deepCopy = {},
+        permutations = [],
+        notesObj,
+        notesObjAdvanced,
 
-    random = function () {
-        return (Math.round(Math.random()) - 0.5);
-    },
+        random = function () {
+            return (Math.round(Math.random()) - 0.5);
+        },
 
-    // Collect all of the arrays from within the deepCopy object.
-    getArrays = function () {
-        // Gather the chord names that will be used to build the dom elements.
-        var chords = [],
-            gotChords = false,
-            note, tone, chord;
+        // Collect all of the arrays from within the deepCopy object.
+        getArrays = function () {
+            // Gather the chord names that will be used to build the dom elements.
+            var chords = [],
+                gotChords = false,
+                note, tone, chord;
 
-        // A deep copy must be made every time in case the user selects a different skill level
-        // (since expand properties are bound to the object depending which level is selected).
-        // Only mixin the advanced types ('augmented', 'diminished', etc.) for the advanced level.
-        deepCopy = (function () {
-            var o = Pete.deepCopy(notesObj),
-                p;
+            // A deep copy must be made every time in case the user selects a different skill level
+            // (since expand properties are bound to the object depending which level is selected).
+            // Only mixin the advanced types ('augmented', 'diminished', etc.) for the advanced level.
+            deepCopy = (function () {
+                var o = Pete.deepCopy(notesObj),
+                    p;
 
-            for (p in notesObj) {
-                 o[p] = Pete.mixin(o[p], notesObjAdvanced[p]);
+                for (p in notesObj) {
+                    o[p] = Pete.mixin(o[p], notesObjAdvanced[p]);
+                }
+
+                return o;
+            }());
+
+            // Reset the chords and permutations array.
+            chords.length = permutations.length = 0;
+
+            // Get the permutations for the chordBuilder view.
+            // Since the default selection is advanced, deepCopy will contain all the possible chords on page load.
+            // Use it to create a hash of chord: notes.
+            if (!cache.chordBuilder) {
+                for (note in deepCopy) {
+                    if (deepCopy.hasOwnProperty(note)) {
+                        for (var s in deepCopy[note]) {
+                            chordBuilder.push({chord: note + ' ' + s, notes: deepCopy[note][s].join('')});
+                        }
+                    }
+
+                    // Randomize after every iteration for the best results.
+                    chordBuilder.sort(random);
+                }
+
+                cache.chordBuilder = chordBuilder;
             }
 
-            return o;
-        }());
-
-        // Reset the chords and permutations array.
-        chords.length = permutations.length = 0;
-
-        // Get the permutations for the chordBuilder view.
-        // Since the default selection is advanced, deepCopy will contain all the possible chords on page load.
-        // Use it to create a hash of chord: notes.
-        if (!cache.chordBuilder) {
             for (note in deepCopy) {
                 if (deepCopy.hasOwnProperty(note)) {
-                    for (var s in deepCopy[note]) {
-                        chordBuilder.push({chord: note + ' ' + s, notes: deepCopy[note][s].join('')});
+                    // Only collect the chords names the first time instead of every time (wasteful).
+                    if (!getArrays.gotNotes) {
+                        // Get each note to use later when we build the dom elements.
+                        notes.push(note);
                     }
-                }
 
-                // Randomize after every iteration for the best results.
-                chordBuilder.sort(random);
+                    tone = deepCopy[note];
+
+                    // If the tone object is false then skip it, i.e., c-flat and e-sharp.
+                    if (!tone) {
+                        continue;
+                    }
+
+                    for (chord in tone) {
+                        if (!gotChords) {
+                            chords.push(chord);
+                        }
+                    }
+
+                    gotChords = true;
+
+                    // Sorting them frequently does a better job at randomizing them.
+                    permutations.sort(random);
+                }
             }
 
-            cache.chordBuilder = chordBuilder;
-        }
+            // Change value or else we'll collect the notes over and over again C
+            getArrays.gotNotes = true;
+            gotChords = false;
+        },
 
-        for (note in deepCopy) {
-            if (deepCopy.hasOwnProperty(note)) {
-                // Only collect the chords names the first time instead of every time (wasteful).
-                if (!getArrays.gotNotes) {
-                    // Get each note to use later when we build the dom elements.
-                    notes.push(note);
-                }
+        n = 0,
 
-                tone = deepCopy[note];
+        // Get the current chord to display to the user.
+        getChord = function () {
+            var permutations = cache.chordBuilder;
 
-                // If the tone object is false then skip it, i.e., c-flat and e-sharp.
-                if (!tone) {
-                    continue;
-                }
-
-                for (chord in tone) {
-                    if (!gotChords) {
-                        chords.push(chord);
-                    }
-                }
-
-                gotChords = true;
-
-                // Sorting them frequently does a better job at randomizing them.
-                permutations.sort(random);
+            if (n === permutations.length) {
+                n = 0;
             }
-        }
 
-        // Change value or else we'll collect the notes over and over again C
-        getArrays.gotNotes = true;
-        gotChords = false;
-    },
+            Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].chord + '</span>';
 
-    n = 0,
+            // We need to attach the array to an expando property since we need another way of comparing than
+            // the value of the currentChord dom element (since the browser converts the entity when displaying
+            // it and it no longer matches the entity when comparing the values in the event handler).
+            Pete.getDom('currentChord').currentChord = permutations[n].notes;
 
-    // Get the current chord to display to the user.
-    getChord = function () {
-        var permutations = cache.chordBuilder;
+            n++;
+        },
 
-        if (n === permutations.length) {
-            n = 0;
-        }
+        setQuiz = function () {
+            var i, len;
 
-        Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].chord + '</span>';
-
-        // We need to attach the array to an expando property since we need another way of comparing than
-        // the value of the currentChord dom element (since the browser converts the entity when displaying
-        // it and it no longer matches the entity when comparing the values in the event handler).
-        Pete.getDom('currentChord').currentChord = permutations[n].notes;
-
-        n++;
-    },
-
-    setQuiz = function () {
-        var i, len;
-
-        for (i = 0, len = notes.length; i < len; i++) {
-            Pete.create({
-                tag: 'a',
-                attr: {
-                    className: 'notes',
-                    href: '#',
-                    sortOrder: i
-                },
-                items: [{
-                    tag: 'span',
+            for (i = 0, len = notes.length; i < len; i++) {
+                Pete.create({
+                    tag: 'a',
                     attr: {
-                        innerHTML: notes[i],
+                        className: 'notes',
+                        href: '#',
+                        sortOrder: i
+                    },
+                    items: [{
+                        tag: 'span',
+                        attr: {
+                            innerHTML: notes[i],
 
-                        // Bind an expando property for when comparing values in the event handler.
-                        note: notes[i]
-                    }
-                }],
-                parent: Pete.getDom('notes')
+                            // Bind an expando property for when comparing values in the event handler.
+                            note: notes[i]
+                        }
+                    }],
+                    parent: Pete.getDom('notes')
+                });
+            }
+        },
+
+        reset = function () {
+            // Get all child nodes within the drop zone that have a 'sortOrder' property.
+            var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.gets('#dropZoneContainer .notes', true))).filter(function (v) {
+                // Should there be a better check?
+                return (typeof v.sortOrder === 'number');
+            }),
+                frag = document.createDocumentFragment(),
+                dropZone = Pete.get('notes');
+
+            // Sort all nodes in this drop zone by their sort order property.
+            arr.sort(function (a, b) {
+                return a.sortOrder - b.sortOrder;
             });
-        }
-    },
 
-    reset = function () {
-        // Get all child nodes within the drop zone that have a 'sortOrder' property.
-        var arr = Pete.makeArray(Pete.getDom('notes').childNodes).concat(Pete.makeArray(Pete.gets('#dropZoneContainer .notes', true))).filter(function (v) {
-            // Should there be a better check?
-            return (typeof v.sortOrder === 'number');
-        }),
-        frag = document.createDocumentFragment(),
-        dropZone = Pete.get('notes');
+            // Remove all the nodes...
+            dropZone.remove(true);
 
-        // Sort all nodes in this drop zone by their sort order property.
-        arr.sort(function (a, b) {
-            return a.sortOrder - b.sortOrder;
-        });
+            // ...and readd them to the document fragment.
+            arr.forEach(function (v) {
+                // Null out the inline styles that were bound to the element when it was dragged to the drop zone
+                // (b/c of specificity the the rules set in the class won't 'shine' through).
+                //v.style.border = v.style.margin = null;
+                delete v.style.border;
+                delete v.style.margin;
 
-        // Remove all the nodes...
-        dropZone.remove(true);
+                frag.appendChild(v);
+            });
 
-        // ...and readd them to the document fragment.
-        arr.forEach(function (v) {
-            // Null out the inline styles that were bound to the element when it was dragged to the drop zone
-            // (b/c of specificity the the rules set in the class won't 'shine' through).
-            //v.style.border = v.style.margin = null;
-            delete v.style.border;
-            delete v.style.margin;
-
-            frag.appendChild(v);
-        });
-
-        dropZone.append(frag);
-    };
+            dropZone.append(frag);
+        };
 
     Pete.defer.autoWrap = false;
 

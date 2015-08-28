@@ -19,206 +19,206 @@
         getChord();
     },
 
-    skip = function () {
-        getChord();
-    },
-
-    cache = {
-        beginner: null,
-        intermediate: null,
-        advanced: null
-    },
-
-    // Gather the note names that will be used to build the dom elements.
-    notes = [],
-    inversions = ['RootPosition', 'FirstInversion', 'SecondInversion', 'ThirdInversion'],
-    // Holds the deep copy of either the notesObj object or both the notesObj and notesObjAdvanced objects.
-    deepCopy = {},
-    permutations = [],
-    skillLevel,
-    notesObj,
-    notesObjAdvanced,
-
-    // TODO: Move into core library.
-    random = function () {
-        return (Math.round(Math.random()) - 0.5);
-    },
-
-    // Instead of hardcoding the inversions, make them on the fly and bind them to the deepCopy object.
-    makeInversions = function (obj) {
-        var clone = obj.arr.concat(),
-            clone2 = obj.arr.concat(),
-            clone3 = obj.arr.concat(),
-            temp = clone.shift(),
-            tempArr = clone2.splice(0, 2),
-            temp3 = clone3.pop();
-
-        clone.push(temp);
-        clone3.unshift(temp3);
-        permutations.push(deepCopy[obj.note][obj.chord + 'FirstInversion'] = clone);
-        permutations.push(deepCopy[obj.note][obj.chord + 'SecondInversion'] = clone2.concat(tempArr));
-        permutations.push(deepCopy[obj.note][obj.chord + 'ThirdInversion'] = clone3);
-    },
-
-    // Collect all of the arrays from within the deepCopy object.
-    getArrays = function () {
-        // Gather the chord names that will be used to build the dom elements.
-        var chords = [],
-            gotChords = false,
-            note, tone, chord;
-
-        // A deep copy must be made every time in case the user selects a different skill level
-        // (since expand properties are bound to the object depending which level is selected).
-        // Only mixin the advanced types ('augmented', 'diminished', etc.) for the advanced level.
-        deepCopy = skillLevel !== 'advanced' ?
-            Pete.deepCopy(notesObj) :
-                (function () {
-                    var o = Pete.deepCopy(notesObj),
-                        p;
-
-                    for (p in notesObj) {
-                         o[p] = Pete.mixin(o[p], notesObjAdvanced[p]);
-                    }
-
-                    return o;
-                }());
-
-        // Reset the chords and permutations array.
-        chords.length = permutations.length = 0;
-
-        for (note in deepCopy) {
-            if (deepCopy.hasOwnProperty(note)) {
-                // Only collect the chords names the first time instead of every time (wasteful).
-                if (!getArrays.gotNotes) {
-                    // Get each note to use later when we build the dom elements.
-                    notes.push(note);
-                }
-
-                tone = deepCopy[note];
-
-                // If the tone object is false then skip it, i.e., c-flat and e-sharp.
-                if (!tone) {
-                    continue;
-                }
-
-                for (chord in tone) {
-                    if (!gotChords) {
-                        chords.push(chord);
-                    }
-
-                    if (tone.hasOwnProperty(chord)) {
-                        permutations.push(tone[chord]);
-
-                        if (skillLevel !== 'beginner') {
-                            makeInversions({
-                                arr: tone[chord],
-                                note: note,
-                                chord: chord
-                            });
-                        }
-                    }
-                }
-
-                gotChords = true;
-
-                // Sorting them frequently does a better job at randomizing them.
-                permutations.sort(random);
-            }
-        }
-
-        // Change value or else we'll collect the notes over and over again C
-        getArrays.gotNotes = true;
-        gotChords = false;
-
-        cache[skillLevel] = {
-            // Store the skill level object so it's only created once (since permutations is a global array
-            // it must be cloned or all the skill levels will reference the last skill level created.
-            permutations: permutations.concat(),
-            chords: chords
-        };
-
-        // Store the skill level object so it's only created once.
-        //cache[skillLevel] = deepCopy;
-    },
-
-    n = 0,
-
-    // Get the current chord to display to the user.
-    getChord = function () {
-        var permutations;
-
-        Pete.gets('span').removeClass('selected');
-        permutations = cache[skillLevel].permutations;
-
-        if (n === permutations.length) {
-            n = 0;
-        }
-
-        Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].join('</span><span>');
-
-        // We need to attach the array to an expando property since we need another way of comparing than
-        // the value of the currentChord dom element (since the browser converts the entity when displaying
-        // it and it no longer matches the entity when comparing the values in the event handler).
-        Pete.getDom('currentChord').currentChord = permutations[n];
-
-        n++;
-    },
-
-    setQuiz = function () {
-        var setElements = function (a, name) {
-            // First remove everything but the title in the <p>, i.e., 'Type' and 'Inversion'.
-            Pete.gets('#' + name + ' a').remove();
-
-            for (i = 0, len = a.length; i < len; i++) {
-                Pete.create({tag: 'a',
-                    attr: {
-                        href: '#'
-                    },
-                    items: [{
-                        tag: 'span',
-                        attr: {
-                            className: name,
-
-                            // Add a space, i.e., 'Third Inversion'.
-                            innerHTML: name === 'inversions' ? a[i].replace(/(Position|Inversion)/, ' $1') : a[i]
-                        }
-                    }],
-                    parent: Pete.getDom(name)
-                });
-            }
+        skip = function () {
+            getChord();
         },
-        i, len;
 
-        if (!setQuiz.initiated) {
-            for (i = 0, len = notes.length; i < len; i++) {
-                Pete.create({
-                    tag: 'a',
-                    attr: {
-                        className: 'notes',
-                        href: '#',
-                        sortOrder: i
-                    },
-                    items: [{
-                        tag: 'span',
-                        attr: {
-                            innerHTML: notes[i],
+        cache = {
+            beginner: null,
+            intermediate: null,
+            advanced: null
+        },
 
-                            // Bind an expando property for when comparing values in the event handler.
-                            note: notes[i]
+        // Gather the note names that will be used to build the dom elements.
+        notes = [],
+        inversions = ['RootPosition', 'FirstInversion', 'SecondInversion', 'ThirdInversion'],
+        // Holds the deep copy of either the notesObj object or both the notesObj and notesObjAdvanced objects.
+        deepCopy = {},
+        permutations = [],
+        skillLevel,
+        notesObj,
+        notesObjAdvanced,
+
+        // TODO: Move into core library.
+        random = function () {
+            return (Math.round(Math.random()) - 0.5);
+        },
+
+        // Instead of hardcoding the inversions, make them on the fly and bind them to the deepCopy object.
+        makeInversions = function (obj) {
+            var clone = obj.arr.concat(),
+                clone2 = obj.arr.concat(),
+                clone3 = obj.arr.concat(),
+                temp = clone.shift(),
+                tempArr = clone2.splice(0, 2),
+                temp3 = clone3.pop();
+
+            clone.push(temp);
+            clone3.unshift(temp3);
+            permutations.push(deepCopy[obj.note][obj.chord + 'FirstInversion'] = clone);
+            permutations.push(deepCopy[obj.note][obj.chord + 'SecondInversion'] = clone2.concat(tempArr));
+            permutations.push(deepCopy[obj.note][obj.chord + 'ThirdInversion'] = clone3);
+        },
+
+        // Collect all of the arrays from within the deepCopy object.
+        getArrays = function () {
+            // Gather the chord names that will be used to build the dom elements.
+            var chords = [],
+                gotChords = false,
+                note, tone, chord;
+
+            // A deep copy must be made every time in case the user selects a different skill level
+            // (since expand properties are bound to the object depending which level is selected).
+            // Only mixin the advanced types ('augmented', 'diminished', etc.) for the advanced level.
+            deepCopy = skillLevel !== 'advanced' ?
+                Pete.deepCopy(notesObj) :
+                    (function () {
+                        var o = Pete.deepCopy(notesObj),
+                            p;
+
+                        for (p in notesObj) {
+                            o[p] = Pete.mixin(o[p], notesObjAdvanced[p]);
                         }
-                    }],
-                    parent: Pete.getDom('notes')
-                });
+
+                        return o;
+                    }());
+
+            // Reset the chords and permutations array.
+            chords.length = permutations.length = 0;
+
+            for (note in deepCopy) {
+                if (deepCopy.hasOwnProperty(note)) {
+                    // Only collect the chords names the first time instead of every time (wasteful).
+                    if (!getArrays.gotNotes) {
+                        // Get each note to use later when we build the dom elements.
+                        notes.push(note);
+                    }
+
+                    tone = deepCopy[note];
+
+                    // If the tone object is false then skip it, i.e., c-flat and e-sharp.
+                    if (!tone) {
+                        continue;
+                    }
+
+                    for (chord in tone) {
+                        if (!gotChords) {
+                            chords.push(chord);
+                        }
+
+                        if (tone.hasOwnProperty(chord)) {
+                            permutations.push(tone[chord]);
+
+                            if (skillLevel !== 'beginner') {
+                                makeInversions({
+                                    arr: tone[chord],
+                                    note: note,
+                                    chord: chord
+                                });
+                            }
+                        }
+                    }
+
+                    gotChords = true;
+
+                    // Sorting them frequently does a better job at randomizing them.
+                    permutations.sort(random);
+                }
             }
 
-            setElements(inversions, 'inversions');
-        }
+            // Change value or else we'll collect the notes over and over again C
+            getArrays.gotNotes = true;
+            gotChords = false;
 
-        // The chords change depending upon the skill level but the notes and inversions never do.
-        // Set an expando so this is only done once.
-        setQuiz.initiated = true;
-        setElements(cache[skillLevel].chords, 'chords');
-    };
+            cache[skillLevel] = {
+                // Store the skill level object so it's only created once (since permutations is a global array
+                // it must be cloned or all the skill levels will reference the last skill level created.
+                permutations: permutations.concat(),
+                chords: chords
+            };
+
+            // Store the skill level object so it's only created once.
+            //cache[skillLevel] = deepCopy;
+        },
+
+        n = 0,
+
+        // Get the current chord to display to the user.
+        getChord = function () {
+            var permutations;
+
+            Pete.gets('span').removeClass('selected');
+            permutations = cache[skillLevel].permutations;
+
+            if (n === permutations.length) {
+                n = 0;
+            }
+
+            Pete.getDom('currentChord').innerHTML = '<span>' + permutations[n].join('</span><span>');
+
+            // We need to attach the array to an expando property since we need another way of comparing than
+            // the value of the currentChord dom element (since the browser converts the entity when displaying
+            // it and it no longer matches the entity when comparing the values in the event handler).
+            Pete.getDom('currentChord').currentChord = permutations[n];
+
+            n++;
+        },
+
+        setQuiz = function () {
+            var setElements = function (a, name) {
+                // First remove everything but the title in the <p>, i.e., 'Type' and 'Inversion'.
+                Pete.gets('#' + name + ' a').remove();
+
+                for (i = 0, len = a.length; i < len; i++) {
+                    Pete.create({tag: 'a',
+                        attr: {
+                            href: '#'
+                        },
+                        items: [{
+                            tag: 'span',
+                            attr: {
+                                className: name,
+
+                                // Add a space, i.e., 'Third Inversion'.
+                                innerHTML: name === 'inversions' ? a[i].replace(/(Position|Inversion)/, ' $1') : a[i]
+                            }
+                        }],
+                        parent: Pete.getDom(name)
+                    });
+                }
+            },
+                i, len;
+
+            if (!setQuiz.initiated) {
+                for (i = 0, len = notes.length; i < len; i++) {
+                    Pete.create({
+                        tag: 'a',
+                        attr: {
+                            className: 'notes',
+                            href: '#',
+                            sortOrder: i
+                        },
+                        items: [{
+                            tag: 'span',
+                            attr: {
+                                innerHTML: notes[i],
+
+                                // Bind an expando property for when comparing values in the event handler.
+                                note: notes[i]
+                            }
+                        }],
+                        parent: Pete.getDom('notes')
+                    });
+                }
+
+                setElements(inversions, 'inversions');
+            }
+
+            // The chords change depending upon the skill level but the notes and inversions never do.
+            // Set an expando so this is only done once.
+            setQuiz.initiated = true;
+            setElements(cache[skillLevel].chords, 'chords');
+        };
 
     Pete.defer.autoWrap = false;
 

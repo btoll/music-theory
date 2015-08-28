@@ -3,6 +3,14 @@
         "run": "rm -rf build"
     }],
 
+    "lint": [{
+        "run": "eslint app"
+    }],
+
+    "test": [{
+        "run": "echo \"test!\""
+    }],
+
     "css": [{
         "src": [
             "../PeteJS/resources/css/",
