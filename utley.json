@@ -7,9 +7,14 @@
         "run": "eslint app"
     }],
 
-    "test": [{
-        "run": "echo \"test!\""
-    }],
+    "build": [
+        "#clean",
+        "#lint",
+        "#css",
+        "#js",
+        "#json",
+        "#quizzes"
+    ],
 
     "css": [{
         "src": [
