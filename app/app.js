@@ -8,9 +8,7 @@ Pete.ready(function () {
     Pete.ajax.load({
         url: 'app.json',
         success: function (response) {
-            var qs = JSON ?
-                    JSON.parse(response) :
-                    eval('[' + response + ']'),
+            var qs = JSON.parse(response),
                 quizMap = {},
                 items = [],
                 q, i, len, quizName, quizText, links;
