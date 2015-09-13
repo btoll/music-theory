@@ -9,15 +9,6 @@ http://www.positioniseverything.net/easyclearing.html
     visibility: hidden;
 }
 
-.selected {
-    background: #EED;
-}
-
-.blank {
-    background: #CCC;
-    cursor: default;
-}
-
 body {
     margin: 0;
     padding: 0;
@@ -29,7 +20,7 @@ div {
 
 p {
     font: italic 14px "Trebuchet MS";
-    margin: 10px 20px 0;
+    margin: 10px 20px 5px;
 }
 
 div#keySignatureQuiz {
@@ -37,12 +28,11 @@ div#keySignatureQuiz {
     margin: 20px auto;
 }
 
-#currentChordContainer {
-    margin: 10px 0;
-    position: relative;
+div#keySignatureQuiz > div {
+    margin: 0 auto;
+    width: 480px;
 }
 
-#currentChord,
 #currentKeySignature {
     background: #EED;
     border: 2px solid #CCC;
@@ -55,16 +45,6 @@ div#keySignatureQuiz {
 
 #currentKeySignature {
     width: 455px;
-}
-
-.skipChord {
-    position: absolute;
-    top: 10px;
-    left: 340px;
-}
-
-#notes {
-    width: 365px;
 }
 
 #keySignatures {
@@ -93,17 +73,12 @@ a:hover {
     width: 130px;
 }
 
-#inversions a {
-    width: 130px;
-}
-
 /*make the <span>s completely fill their parent <a>s*/
 span {
     display: block;
     padding: 10px 0;
 }
 
-#currentChord span,
 #currentKeySignature span {
     display: inline;
     margin: 0 20px;

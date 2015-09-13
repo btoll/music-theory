@@ -74,27 +74,33 @@
             tag: 'div',
             id: 'keySignatureQuiz',
             items: [{
-                tag: 'h3',
-                attr: {
-                    'innerHTML': 'Guess the key signature below by selecting the Key'
-                }
-            }, {
-                tag: 'p',
-                attr: {
-                    'innerHTML': 'Key'
-                }
+                tag: 'div',
+                items: [{
+                    tag: 'h3',
+                    attr: {
+                        'innerHTML': 'Guess the key signature below by selecting the key'
+                    }
+                }, {
+                    tag: 'p',
+                    attr: {
+                        'innerHTML': 'Key'
+                    }
+                }, {
+                    tag: 'div',
+                    id: 'currentKeySignature',
+                    attr: {
+                        'className': 'clearfix'
+                    }
+                }]
             }, {
                 tag: 'div',
-                id: 'currentKeySignature',
-                attr: {
-                    'className': 'clearfix'
-                }
-            }, {
-                tag: 'div',
-                id: 'keySignatures',
-                attr: {
-                    'className': 'clearfix'
-                }
+                items: [{
+                    tag: 'div',
+                    id: 'keySignatures',
+                    attr: {
+                        'className': 'clearfix'
+                    }
+                }]
             }],
             parent: document.body
         });
