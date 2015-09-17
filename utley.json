@@ -1,21 +1,4 @@
 {
-    "clean": [{
-        "run": "rm -rf build"
-    }],
-
-    "lint": [{
-        "run": "eslint app"
-    }],
-
-    "build": [
-        "#clean",
-        "#lint",
-        "#css",
-        "#js",
-        "#json",
-        "#quizzes"
-    ],
-
     "css": [{
         "src": [
             "../PeteJS/resources/css/",
@@ -100,6 +83,20 @@
                 "output": "build/quizzes/key_signature/quiz.js"
             }]
         }]
+    },
+
+    "build": [
+        "#clean",
+        "#lint",
+        "css",
+        "js",
+        "json",
+        "quizzes.key_signature"
+    ],
+
+    "tasks": {
+        "clean": "rm -rf build",
+        "lint": "eslint app"
     }
 }
 
