@@ -4,8 +4,7 @@
             "../PeteJS/resources/css/",
             "resources/css/"
         ],
-        "output": "build/music_theory.css",
-        "version": "1.0.0"
+        "output": "build/music_theory.css"
     }, {
         "src": "app/quizzes/chord_builder/",
         "output": "build/quizzes/chord_builder/quiz.css"
@@ -18,7 +17,6 @@
         "name": "Pete",
         "src": "../PeteJS/src/",
         "output": "build/pete.js",
-        "version": "1.0.0",
         "dependencies": [
             "Pete.prototype.js",
             "Pete.js",
