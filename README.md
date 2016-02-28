@@ -6,8 +6,8 @@ My first solution was to carry around a packet of index cards bound by a rubber 
 When I thought about it, it just made sense to make this into a web application. For one, I always have my phone with me, so I could access the quizzes whenever I had a free moment. And two, why not?
 
 ### Examples
-![ScreenShot](/resources/screenshots/chord_quizzes.png?raw=true)
-![ScreenShot](/resources/screenshots/key_signature_quiz.png?raw=true)
+![ScreenShot](https://raw.github.com/btoll/i/master/music_theory/chord_quizzes.png)
+![ScreenShot](https://raw.github.com/btoll/i/master/music_theory/key_signature_quiz.png)
 
 + Live [demo]
 [demo]: http://music-theory.theowlsnestfarm.com/
