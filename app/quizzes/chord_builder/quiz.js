@@ -13,7 +13,7 @@
         });
 
         dd.initDD(Pete.gets('.dropZone'), {
-            //dropProxy: false,
+            // dropProxy: false,
             subscribe: {
                 beforenodedrop: function (e) {
                     // Only drop if there isn't another child element in the target drop zone.
@@ -222,7 +222,7 @@
             arr.forEach(function (v) {
                 // Null out the inline styles that were bound to the element when it was dragged to the drop zone
                 // (b/c of specificity the the rules set in the class won't 'shine' through).
-                //v.style.border = v.style.margin = null;
+                // v.style.border = v.style.margin = null;
                 delete v.style.border;
                 delete v.style.margin;
 

@@ -90,8 +90,8 @@ Pete.ready(function () {
                         doc.open();
 
                         doc.write(tpl.apply({
-                            quiz_css: dir + 'quiz.css',
-                            quiz_js: dir + 'quiz.js'
+                            'quiz_css': dir + 'quiz.css',
+                            'quiz_js': dir + 'quiz.js'
                         }));
 
                         doc.close();

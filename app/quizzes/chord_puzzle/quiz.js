@@ -138,7 +138,7 @@
             };
 
             // Store the skill level object so it's only created once.
-            //cache[skillLevel] = deepCopy;
+            // cache[skillLevel] = deepCopy;
         },
 
         n = 0,
