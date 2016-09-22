@@ -14,7 +14,7 @@
     }],
 
     "js": [{
-        "name": "Pete",
+        "name": "pete",
         "src": "../PeteJS/src/",
         "output": "build/pete.js",
         "dependencies": [
@@ -26,7 +26,7 @@
         ]
     }, {
         "src": [
-            "@Pete",
+            "@pete",
             "app/app.js"
         ],
         "output": "build/music_theory.js"
@@ -38,7 +38,7 @@
     }],
 
     "quizzes": {
-        "chord_puzzle": [{
+        "chord_puzzle": {
             "css": [{
                 "src": "app/quizzes/chord_puzzle/",
                 "output": "build/quizzes/chord_puzzle/quiz.css"
@@ -56,9 +56,9 @@
                 "src": "app/chords/sevenths/advanced.json",
                 "output": "build/chords/sevenths/advanced.json"
             }]
-        }],
+        },
 
-        "chord_builder": [{
+        "chord_builder": {
             "css": [{
                 "src": "app/quizzes/chord_builder/",
                 "output": "build/quizzes/chord_builder/quiz.css"
@@ -68,9 +68,9 @@
                 "src": "app/quizzes/chord_builder/",
                 "output": "build/quizzes/chord_builder/quiz.js"
             }]
-        }],
+        },
 
-        "key_signature": [{
+        "key_signature": {
             "css": [{
                 "src": "app/quizzes/key_signature/",
                 "output": "build/quizzes/key_signature/quiz.css"
@@ -80,19 +80,11 @@
                 "src": "app/quizzes/key_signature/",
                 "output": "build/quizzes/key_signature/quiz.js"
             }]
-        }]
+        }
     },
 
-    "build": [
-        "#clean",
-        "#lint",
-        "css",
-        "js",
-        "json",
-        "quizzes.key_signature"
-    ],
-
     "tasks": {
+        "build": "utley --clean --lint css js json quizzes.key_signature",
         "clean": "rm -rf build",
         "lint": "eslint app"
     }
