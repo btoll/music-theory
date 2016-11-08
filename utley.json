@@ -84,7 +84,7 @@
     },
 
     "tasks": {
-        "build": "utley --clean --lint css js json quizzes.key_signature",
+        "build": "utley --clean --lint css js json quizzes",
         "clean": "rm -rf build",
         "lint": "eslint app"
     }
