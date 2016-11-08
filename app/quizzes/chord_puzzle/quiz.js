@@ -327,7 +327,7 @@
         // <span> entirely covers each <a>).
         Pete.Element.fly('chordPuzzle').on('click', function (e) {
             var target = e.target,
-                note, chord, inversion;
+                note, chord, inversion, numSelected;
 
             if (target.nodeName === 'SPAN' && target.className !== 'blank') {
                 // The classname needs to be trimmed b/c if it removeClass() was previously called on this then
@@ -335,13 +335,17 @@
                 Pete.gets('span', Pete.getDom(Pete.trim(target.className))).removeClass('selected');
                 Pete.Element.fly(target).addClass('selected');
 
+                numSelected = Pete.gets('#chordPuzzle span.selected').length;
+
                 // User selected one of each so see if they selected correctly.
-                if (Pete.gets('#chordPuzzle span.selected').length === 3) {
+                if (numSelected === 3 || (numSelected === 2 && skillLevel === 'beginner')) {
                     note = Pete.get('#notes .selected').dom.note;
                     chord = Pete.get('#chords .selected').value();
 
-                    // Remove the space that was put in when the dom element was created, i.e., 'Second Inversion'.
-                    inversion = Pete.get('#inversions .selected').value().replace(/\s/, '');
+                    inversion = skillLevel === 'beginner' ?
+                        inversion = 'RootPosition' :
+                        // Remove the space that was put in when the dom element was created, i.e., 'Second Inversion'.
+                        Pete.get('#inversions .selected').value().replace(/\s/, '');
 
                     // Remember root position is the only inversion that doesn't have its inversion as part of its name in deepCopy.
                     if (deepCopy[note][chord + (inversion === 'RootPosition' ? '' : inversion)] === Pete.getDom('currentChord').currentChord) {
