@@ -183,7 +183,8 @@
                                 innerHTML: name === 'inversions' ? a[i].replace(/(Position|Inversion)/, ' $1') : a[i]
                             }
                         }],
-                        parent: Pete.getDom(name)
+                        // TODO: This is gnarly just to get a dom el.
+                        parent: Pete.gets('#' + name + ' div').elements[0]
                     });
                 }
             },
@@ -207,7 +208,8 @@
                                 note: notes[i]
                             }
                         }],
-                        parent: Pete.getDom('notes')
+                        // TODO: This is gnarly just to get a dom el.
+                        parent: Pete.gets('#notes div').elements[0]
                     });
                 }
 
@@ -291,30 +293,36 @@
                 }]
             }, {
                 tag: 'div',
+                id: 'notes',
                 items: [{
                     tag: 'p',
                     text: 'Chord'
                 }, {
                     tag: 'div',
-                    id: 'notes',
                     attr: {
                         className: 'clearfix'
                     }
-                }, {
+                }]
+            }, {
+                tag: 'div',
+                id: 'chords',
+                items: [{
                     tag: 'p',
                     text: 'Type'
                 }, {
                     tag: 'div',
-                    id: 'chords',
                     attr: {
                         className: 'clearfix'
                     }
-                }, {
+                }]
+            }, {
+                tag: 'div',
+                id: 'inversions',
+                items: [{
                     tag: 'p',
                     text: 'Inversion'
                 }, {
                     tag: 'div',
-                    id: 'inversions',
                     attr: {
                         className: 'clearfix'
                     }
