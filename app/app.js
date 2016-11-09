@@ -55,7 +55,7 @@ Pete.ready(function () {
                 var quizName = e.target.hash.replace(reReplaceHash, ''),
                     quiz = quizMap[quizName],
                     iframeId = 'sandbox-' + quizName,
-                    dir = 'app/quizzes/' + quizName + '/';
+                    dir = 'build/quizzes/' + quizName + '/';
 
                 e.preventDefault();
 

@@ -230,7 +230,7 @@
     });
 
     Pete.defer.load({
-        url: 'app/chords/sevenths/basic.json',
+        url: 'build/chords/sevenths/basic.json',
         data: 'json',
         type: 'POST',
         success: function (data, resp) {
@@ -239,7 +239,7 @@
     });
 
     Pete.defer.load({
-        url: 'app/chords/sevenths/advanced.json',
+        url: 'build/chords/sevenths/advanced.json',
         data: 'json',
         type: 'POST',
         success: function (data, resp) {
