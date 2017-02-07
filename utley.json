@@ -87,7 +87,7 @@
         "build": "utley --clean --lint css js json quizzes --tar",
         "clean": "rm -rf build",
         "lint": "eslint app",
-        "tar": "cd build && tar cjvf music_theory-`date \"+%Y-%m-%d:%H:%M:%S\"`.bz2 *"
+        "tar": "mkdir -p build && cd build && tar cjvf music_theory.bz2 *"
     }
 }
 
