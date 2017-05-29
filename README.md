@@ -33,7 +33,7 @@ After creating the static assets, simply tell the app about it. This is done by 
 
 (The data config currently only contains the quiz's dimensions, but that is extensible.)
 
-This will create a new link when the app is bootstrapped which will activate the new quiz.
+This will create a new link in the quiz menu when the app is bootstrapped which will activate the new quiz.
 
     <a href="#NEW_QUIZ" title="New Quiz">New Quiz</a>
 

@@ -1,0 +1,29 @@
+{
+  "name": "music-theory",
+  "version": "0.1.0",
+  "description": "Music theory fun",
+  "main": "index.js",
+  "scripts": {
+    "build": "scripts/build.sh",
+    "clean": "rm -rf build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btoll/music-theory.git"
+  },
+  "keywords": [],
+  "author": "Benjamin Toll <benjam72@yahoo.com> (http://www.benjamintoll.com)",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/btoll/music-theory/issues"
+  },
+  "homepage": "https://github.com/btoll/music-theory#readme",
+  "dependencies": {
+    "pete-dd": "github:btoll/pete-dd",
+    "pete-dom": "github:btoll/pete-dom"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "browserify": "^14.3.0"
+  }
+}
