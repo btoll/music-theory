@@ -4,7 +4,7 @@
   "description": "Music theory fun",
   "main": "index.js",
   "scripts": {
-    "build": "scripts/build.sh",
+    "build": "npm run clean && scripts/build.sh",
     "clean": "rm -rf build"
   },
   "repository": {
@@ -23,7 +23,9 @@
     "pete-dom": "github:btoll/pete-dom"
   },
   "devDependencies": {
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
     "browserify": "^14.3.0"
   }
 }
