@@ -118,7 +118,9 @@ const notes = [];
 // Holds the deep copy of either the notesObj object or both the notesObj and notesObjAdvanced objects.
 const deepCopy = {};
 const permutations = [];
-let notesObj, notesObjAdvanced;
+let notesObj;
+let notesObjAdvanced;
+let notesObjEnharmonic;
 
 const random = () => (Math.round(Math.random()) - 0.5);
 
@@ -138,7 +140,7 @@ const getArrays = () => {
             o[p] = core.mixin(o[p], notesObjAdvanced[p]);
         }
 
-        return o;
+        return core.mixin(o, notesObjEnharmonic);
     })();
 
     // Reset the chords and permutations array.
@@ -267,6 +269,17 @@ const reset = function () {
 Promise.all([
     new Promise((resolve, reject) =>
         ajax.load({
+            url: 'build/chords/enharmonic.json',
+            data: 'json',
+            success: data => (
+                notesObjEnharmonic = data,
+                resolve()
+            )
+        })
+    ),
+
+    new Promise((resolve, reject) =>
+        ajax.load({
             url: 'build/chords/sevenths/basic.json',
             data: 'json',
             success: data => (
@@ -286,7 +299,7 @@ Promise.all([
             )
         })
     )
-]).then(() => init());
+]).then(init);
 
 dom.ready(function () {
     dom.create({
