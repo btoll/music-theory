@@ -228,13 +228,13 @@ const setQuiz = () => {
             dom.create({
                 tag: 'a',
                 attr: {
-                    className: 'notes',
                     href: '#',
                     sortOrder: i
                 },
                 items: [{
                     tag: 'span',
                     attr: {
+                        className: 'notes',
                         innerHTML: notes[i],
 
                         // Bind an expando property for when comparing values in the event handler.
@@ -370,8 +370,8 @@ dom.ready(() => {
         let note, chord, inversion, numSelected;
 
         if (target.nodeName === 'SPAN' && target.className !== 'blank') {
-            // The classname needs to be trimmed b/c if it removeClass() was previously called on this then
-            // there will be an extra space in the classname, i.e., 'notes ' (is this a bug?).
+            // The classname needs to be trimmed b/c if removeClass() was previously called on this
+            // then there will be an extra space in the classname, i.e., 'notes ' (is this a bug?).
             element.gets('span', dom.getDom(target.className.trim())).removeClass('selected');
             element.fly(target).addClass('selected');
 
