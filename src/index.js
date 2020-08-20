@@ -64,6 +64,7 @@ dom.ready(() => {
 
                 // Return early if already downloaded.
                 if (cachedQuizzes[quizName]) {
+                    element.get(iframeId).toggleClass('hide');
                     return;
                 }
 
