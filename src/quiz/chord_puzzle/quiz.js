@@ -87,7 +87,11 @@ const init = level => {
     getChord();
 };
 
-const skip = getChord;
+const skipChord = () => {
+    const skip = dom.getDom('skip');
+    skip.innerHTML = parseInt(skip.innerHTML, 10) + 1
+    getChord();
+};
 
 const cache = {
     beginner: null,
@@ -286,6 +290,15 @@ dom.ready(() => {
         items: [{
             tag: 'div',
             items: [{
+                tag: 'div',
+                id: 'scoreboard',
+                attr: {
+                    'className': 'clearfix'
+                }
+            }]
+        }, {
+            tag: 'div',
+            items: [{
                 tag: 'h3',
                 text: 'Guess the chord below by selecting a Chord, Type and an Inversion'
             }, {
@@ -363,6 +376,31 @@ dom.ready(() => {
         parent: document.body
     });
 
+    const scorecard = ['Success', 'Fail', 'Skip'];
+
+    for (let i = 0, len = scorecard.length; i < len; i++) {
+        dom.create({tag: 'div',
+            attr: {
+                className: 'scorecard',
+                // Bind an expando property.
+//                scorecard: scorecard[i]
+            },
+            items: [{
+                tag: 'h1',
+                attr: {
+                    innerHTML: scorecard[i]
+                }
+            }, {
+                tag: 'p',
+                attr: {
+                    id: scorecard[i].toLowerCase(),
+                    innerHTML: 0
+                }
+            }],
+            parent: dom.getDom('scoreboard')
+        });
+    }
+
     // Note we're only binding one event listener for the entire page (because of this make sure each
     // <span> entirely covers each <a>).
     element.fly('chordPuzzle').on('click', e => {
@@ -389,9 +427,13 @@ dom.ready(() => {
 
                 // Remember root position is the only inversion that doesn't have its inversion as part of its name in deepCopy.
                 if (deepCopy[note][chord + (inversion === 'RootPosition' ? '' : inversion)] === dom.getDom('currentChord').currentChord) {
+                    const success = dom.getDom('success');
+                    success.innerHTML = parseInt(success.innerHTML, 10) + 1
                     alert('Correct!');
                     getChord();
                 } else {
+                    const fail = dom.getDom('fail');
+                    fail.innerHTML = parseInt(fail.innerHTML, 10) + 1
                     alert('Incorrect!');
                 }
 
@@ -408,7 +450,7 @@ dom.ready(() => {
         }
     });
 
-    element.get('.skipChord').on('click', skip);
+    element.get('.skipChord').on('click', skipChord);
 
     element.gets('input[type=radio]').on('click', e => {
         const value = e.target.value;

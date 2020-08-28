@@ -35,7 +35,8 @@ p {
 
 div#chordBuilder {
     background: #FFF;
-    margin: 20px auto;
+    margin: 0;
+    padding: 0;
 }
 
 div#chordBuilder > div {

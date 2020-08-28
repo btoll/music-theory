@@ -71,14 +71,23 @@ dom.ready(() => {
         items: [{
             tag: 'div',
             items: [{
+                tag: 'div',
+                id: 'scoreboard',
+                attr: {
+                    'className': 'clearfix'
+                }
+            }]
+        }, {
+            tag: 'div',
+            items: [{
                 tag: 'h3',
                 attr: {
-                    'innerHTML': 'Guess the key signature below by selecting the key'
+                    innerHTML: 'Guess the key signature below by selecting the key'
                 }
             }, {
                 tag: 'p',
                 attr: {
-                    'innerHTML': 'Key'
+                    innerHTML: 'Key'
                 }
             }, {
                 tag: 'div',
@@ -100,6 +109,31 @@ dom.ready(() => {
         parent: document.body
     });
 
+    const scorecard = ['Success', 'Fail'];
+
+    for (let i = 0, len = scorecard.length; i < len; i++) {
+        dom.create({tag: 'div',
+            attr: {
+                className: 'scorecard',
+                // Bind an expando property.
+//                scorecard: scorecard[i]
+            },
+            items: [{
+                tag: 'h1',
+                attr: {
+                    innerHTML: scorecard[i]
+                }
+            }, {
+                tag: 'p',
+                attr: {
+                    id: scorecard[i].toLowerCase(),
+                    innerHTML: 0
+                }
+            }],
+            parent: dom.getDom('scoreboard')
+        });
+    }
+
     for (let i = 0, len = notes.length; i < len; i++) {
         dom.create({tag: 'a',
             attr: {
@@ -120,16 +154,20 @@ dom.ready(() => {
     // Note we're only binding one event listener for the entire page (because of this make sure each
     // <span> entirely covers each <a>).
     element.fly('keySignatures').on('click', e => {
-        const  target = e.target;
+        const target = e.target;
         let note;
 
         if (target.nodeName === 'SPAN') {
             note = target.note;
 
             if (notesObj[note] === dom.getDom('currentKeySignature').currentKeySignature) {
+                const success = dom.getDom('success');
+                success.innerHTML = parseInt(success.innerHTML, 10) + 1
                 alert('Correct');
                 getChord();
             } else {
+                const fail = dom.getDom('fail');
+                fail.innerHTML = parseInt(fail.innerHTML, 10) + 1
                 alert('Incorrect');
             }
         }

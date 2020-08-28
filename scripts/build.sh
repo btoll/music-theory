@@ -19,7 +19,7 @@ babel src/index.js | browserify - > build/index.js
         mkdir -p $DEST
         babel "$quiz/quiz.js" | browserify - > $DEST/quiz.js
 
-        cp "$quiz/quiz.css" $DEST
+        cp "$quiz/"*.css $DEST
     done
 
 )

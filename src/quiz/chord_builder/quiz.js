@@ -79,11 +79,15 @@ const init = () => {
                     }
 
                     if (dom.getDom('currentChord').currentChord === arr.join('')) {
+                        const success = dom.getDom('success');
+                        success.innerHTML = parseInt(success.innerHTML, 10) + 1
                         alert('Correct!');
 
                         reset();
                         getChord();
                     } else {
+                        const fail = dom.getDom('fail');
+                        fail.innerHTML = parseInt(fail.innerHTML, 10) + 1
                         alert('Incorrect!');
                     }
                 }
@@ -103,6 +107,8 @@ const init = () => {
 };
 
 const skipChord = () => {
+    const skip = dom.getDom('skip');
+    skip.innerHTML = parseInt(skip.innerHTML, 10) + 1
     reset();
     getChord();
 };
@@ -308,6 +314,15 @@ dom.ready(function () {
         items: [{
             tag: 'div',
             items: [{
+                tag: 'div',
+                id: 'scoreboard',
+                attr: {
+                    'className': 'clearfix'
+                }
+            }]
+        }, {
+            tag: 'div',
+            items: [{
                 tag: 'h3',
                 text: 'Build the chord below by selecting the Notes that make it up'
             }, {
@@ -372,6 +387,31 @@ dom.ready(function () {
         }],
         parent: document.body
     });
+
+    const scorecard = ['Success', 'Fail', 'Skip'];
+
+    for (let i = 0, len = scorecard.length; i < len; i++) {
+        dom.create({tag: 'div',
+            attr: {
+                className: 'scorecard',
+                // Bind an expando property.
+//                scorecard: scorecard[i]
+            },
+            items: [{
+                tag: 'h1',
+                attr: {
+                    innerHTML: scorecard[i]
+                }
+            }, {
+                tag: 'p',
+                attr: {
+                    id: scorecard[i].toLowerCase(),
+                    innerHTML: 0
+                }
+            }],
+            parent: dom.getDom('scoreboard')
+        });
+    }
 
     element.get('.skipChord').on('click', skipChord);
 

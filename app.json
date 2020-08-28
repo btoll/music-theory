@@ -2,22 +2,22 @@
     {
         "name": "chord_puzzle",
         "data": {
-            "width": 600,
-            "height": 750
+            "width": 570,
+            "height": 800
         }
     },
     {
         "name": "chord_builder",
         "data": {
-            "width": 600,
-            "height": 550
+            "width": 550,
+            "height": 670
         }
     },
     {
         "name": "key_signature",
         "data": {
-            "width": 600,
-            "height": 270
+            "width": 530,
+            "height": 400
         }
     }
 ]

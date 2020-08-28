@@ -94,6 +94,7 @@ dom.ready(() => {
                         doc.open();
 
                         doc.write(tpl.apply({
+                            'scoreboard_css': `${dir}/scoreboard.css`,
                             'quiz_css': `${dir}/quiz.css`,
                             'quiz_js': `${dir}/quiz.js`
                         }));
