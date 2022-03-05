@@ -1,3 +1,13 @@
+## Music Theory
+
+- [The Big Idea](#the-big-idea)
+- [Examples](#examples)
+- [Creating a New Quiz](#creating-a-new-quiz)
+- [Future Development](#future-development)
+- [Install](#install)
+
+---
+
 ### The Big Idea
 When I lived in the Bay Area, I took [jazz guitar lessons]. Very often, I found myself unable to immediately recall the correct makeup of a particular chord, and, as I am a perfectionist, this was a continual source of annoyance.
 
@@ -45,6 +55,27 @@ I've tried to make it easy to add new chords for the existing challenges. The pr
 This new chord directory is expected to have at least one `JSON` config file name `basic.json`. If there is a desire for more advanced chords, then add them in an `advanced.json` config file.  These names are mandatory.
 
 Please see the `sevenths` chord directory for an example.
+
+### Install and Build
+
+```
+$ git clone git@github.com:btoll/music-theory.git
+$ cd music-theory
+$ npm install
+$ npm run build
+```
+
+This will run the `babel` and `browserify` packages to prepare this for the browser.  Everything is written to the `./build` directory.
+
+All that is needed to run the application is a web server that serves files out of a directory with the following structure:
+
+```
+./music-theory
+├── index.html
+└── build/
+```
+
+Point your browser to the location and have fun!
 
 [jazz guitar lessons]: http://hristovitchev.com/en/
 
