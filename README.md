@@ -17,7 +17,7 @@ When I thought about it, it just made sense to make this into a web application.
 
 ### Examples
 ![ScreenShot](https://raw.github.com/btoll/i/master/music_theory/chord_quizzes.png)
-![ScreenShot](https://raw.github.com/btoll/i/master/music_theory/key_signature_quiz.png)
+![ScreenShot](https://raw.github.com/btoll/i/master/music_theory/key_signatures_quiz.png)
 
 + Live demo
 [demo]: http://www.benjamintoll.com/music-theory/
